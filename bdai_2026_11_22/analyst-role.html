@@ -2027,6 +2027,16 @@ GROUP BY sale_date, store_id;</code></pre>
       <p class="acquisition-formula">채널 CPI = 채널 광고비 ÷ 해당 채널에 귀속된 앱 설치 수</p>
       <p>매체 자체 집계와 Airbridge의 기여 집계는 같은 광고비에서도 CPI가 달라질 수 있다.</p>
     </div>
+    <figure class="attribution-timeline">
+      <div class="attribution-window">설치 전 7일 룩백 윈도우</div>
+      <ol class="attribution-events" aria-label="설치까지의 광고 터치포인트">
+        <li><small>D−9</small><strong>Meta Ads</strong><span>기간 밖 클릭</span></li>
+        <li><small>D−3</small><strong>TikTok Ads</strong><span>기간 내 클릭</span></li>
+        <li data-winning><small>D−1</small><strong>Google Search Ads</strong><span>마지막 유효 클릭</span></li>
+        <li><small>D0</small><strong>앱 설치</strong><span>전환 이벤트</span></li>
+      </ol>
+      <figcaption>기간 내 클릭의 우선순위가 같으면, Airbridge는 가장 최근 클릭인 <strong>Google Search Ads</strong>에 이 설치를 귀속한다.</figcaption>
+    </figure>
     <div>
       <h3 id="san-cpi-title">광고 매체 자체 집계(SAN)</h3>
       <table class="domain-table acquisition-table" aria-labelledby="san-cpi-title">
@@ -2039,16 +2049,6 @@ GROUP BY sale_date, store_id;</code></pre>
         </tbody>
       </table>
     </div>
-    <figure class="attribution-timeline">
-      <div class="attribution-window">설치 전 7일 룩백 윈도우</div>
-      <ol class="attribution-events" aria-label="설치까지의 광고 터치포인트">
-        <li><small>D−9</small><strong>Meta Ads</strong><span>기간 밖 클릭</span></li>
-        <li><small>D−3</small><strong>TikTok Ads</strong><span>기간 내 클릭</span></li>
-        <li data-winning><small>D−1</small><strong>Google Search Ads</strong><span>마지막 유효 클릭</span></li>
-        <li><small>D0</small><strong>앱 설치</strong><span>전환 이벤트</span></li>
-      </ol>
-      <figcaption>기간 내 클릭의 우선순위가 같으면, Airbridge는 가장 최근 클릭인 <strong>Google Search Ads</strong>에 이 설치를 귀속한다.</figcaption>
-    </figure>
     <div>
       <h3 id="airbridge-cpi-title">Airbridge · 마지막 터치포인트 기여</h3>
       <table class="domain-table acquisition-table" aria-labelledby="airbridge-cpi-title">
