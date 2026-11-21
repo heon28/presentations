@@ -420,7 +420,7 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 }
 .process-example-list li { padding-block-end: 1lh; }
 .process-example-list li::marker { color: var(--blue); }
-.process-examples h3 { margin: 0 0 .55em; color: var(--blue); font-size: 1.08em; }
+.process-examples h3 { margin: 0 0 .55em; color: var(--ink); font-size: 1.08em; }
 @media (max-aspect-ratio: 1/1) {
   .process-examples {
     grid-template-columns: 1fr; grid-template-rows: auto minmax(min-content, 1fr);
@@ -432,23 +432,25 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   .process-example-list { row-gap: .28em; }
 }
 
+@media (max-width: 360px) and (max-aspect-ratio: 1/1) {
+  :is(#analysis-examples, #analysis-examples-annotated) .process-example-list { line-height: 2.4; }
+  :is(#analysis-examples, #analysis-examples-annotated) .process-example-list li { padding-block-end: .95em; }
+  :is(#analysis-examples, #analysis-examples-annotated) .process-sequence :is(th, td) { padding-block: .14em; }
+}
+
 /* 밑줄 친 구절 바로 아래에 해당 개념을 표시한다. */
 #analysis-examples-annotated { overflow: hidden; }
-#analysis-examples-annotated .process-example-list { row-gap: clamp(.45em, 4dvh, 1.55em); }
-#analysis-examples-annotated .process-example-list li { padding-block-end: 0; }
-.process-labeled-phrase {
-  display: inline-grid; justify-items: center;
-  color: var(--annotation-color); white-space: nowrap;
-}
+.process-labeled-phrase { position: relative; color: var(--annotation-color); }
 .process-labeled-phrase[data-role="cause"] { --annotation-color: var(--blue); }
 .process-labeled-phrase[data-role="observation"] { --annotation-color: #176248; }
 .process-labeled-phrase[data-role="solution"] { --annotation-color: #884607; }
 .process-labeled-phrase[data-role="purpose"] { --annotation-color: #6b4599; }
 .process-labeled-phrase[data-role="ambiguity"] { --annotation-color: #9c334c; }
 .process-mark { text-decoration: underline; text-underline-offset: .18em; text-decoration-thickness: .085em; }
-.process-label { margin-top: .36em; font-size: .76em; line-height: 1.25; font-weight: 750; }
-@media (max-aspect-ratio: 1/1) {
-  #analysis-examples-annotated .process-example-list { row-gap: clamp(.22em, 1dvh, .65em); }
+.process-label {
+  position: absolute; inset-block-start: calc(100% + .18em); inset-inline-start: 50%;
+  transform: translateX(-50%); white-space: nowrap;
+  font-size: .76em; line-height: 1.25; font-weight: 750;
 }
 
 /* 결론과 근거 사이를 양방향으로 읽는 로직 트리 */
