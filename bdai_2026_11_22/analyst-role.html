@@ -470,10 +470,9 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .acquisition-table td:last-child { color: var(--blue); font-weight: 740; }
 .acquisition-example h3 { margin: 0 0 .22em; font-size: 1.16em; }
 .acquisition-example p + p { margin-top: .22em; }
-.acquisition-signal { background: var(--blue-paper); padding: .76em 1.05em; }
-.acquisition-tests { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
-.acquisition-tests > div { border-top: 2px solid var(--line); padding-top: .65em; }
-.acquisition-tests strong { color: var(--blue); }
+.acquisition-topics { margin: 0; padding-inline-start: 1.35em; }
+.acquisition-topics > li + li { margin-top: clamp(.6em, 3.35dvh, 1.55em); }
+.acquisition-topics > li::marker, .acquisition-topics p strong { color: var(--blue); }
 .acquisition-flow {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: .25em .6em;
   margin: .29em 0 .45em; padding: 0; list-style: none; color: var(--blue); font-weight: 740;
@@ -482,8 +481,6 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 @media (max-aspect-ratio: 1/1) {
   .acquisition-example { padding-inline: .5rem; font-size: clamp(12px, 3.4vw, 21px); }
   .acquisition-table td, .acquisition-table th { padding: .48em .36em; }
-  .acquisition-tests { gap: .75em; }
-  .acquisition-tests > div { padding-top: .4em; }
 }
 
 /* 지역 인구 사례로 문제 정의를 고치고 원인 가설을 나눈다. */
@@ -1933,23 +1930,23 @@ GROUP BY sale_date, store_id;</code></pre>
 <section id="cac-optimization" class="slide" aria-labelledby="title-cac-optimization" hidden>
   <header class="head"><h2 id="title-cac-optimization">CAC 줄이기 · 소재와 타겟팅 최적화</h2></header>
   <div class="acquisition-example">
-    <div class="acquisition-tests">
-      <div>
+    <ul class="acquisition-topics">
+      <li>
         <h3>소재 테스트</h3>
         <p>같은 타겟과 영상 형식에서 <strong>제품 사용 장면</strong>과 <strong>첫 구매 혜택</strong> 중 어느 메시지가 첫 구매 CAC를 낮추는가?</p>
-      </div>
-      <div>
+      </li>
+      <li>
         <h3>타겟팅 테스트</h3>
         <p>같은 소재로 <strong>넓게 노출</strong>할 때와 <strong>기존 구매자와 유사한 그룹</strong>에 노출할 때의 첫 구매 CAC를 비교한다.</p>
-      </div>
-    </div>
-    <div class="acquisition-signal">
-      <h3>Postback · 앱 전환 이벤트를 광고 매체에 전달</h3>
-      <ol class="acquisition-flow" aria-label="첫 구매 전환 이벤트 전달 흐름">
+      </li>
+      <li>
+        <h3>Postback(앱 전환 이벤트를 광고 매체에 전달)</h3>
+        <ol class="acquisition-flow" aria-label="첫 구매 전환 이벤트 전달 흐름">
         <li>앱에서 첫 구매</li><li>MMP(Airbridge)</li><li>SAN(Meta Ads)</li>
-      </ol>
-      <p>SAN은 전환이 자사 광고에서 발생했는지 자체 기준으로 판정하는 매체다. 첫 구매를 최적화 목표로 설정하면 매체가 이 신호를 광고 노출과 입찰에 활용할 수 있다.</p>
-    </div>
+        </ol>
+        <p>SAN은 전환이 자사 광고에서 발생했는지 자체 기준으로 판정하는 매체다. 첫 구매를 최적화 목표로 설정하면 매체가 이 신호를 광고 노출과 입찰에 활용할 수 있다.</p>
+      </li>
+    </ul>
     <p class="acquisition-caption">출처 · <a href="https://help.airbridge.io/en/guides/meta-business-channel-integration" target="_blank" rel="noopener noreferrer">Airbridge의 Meta Ads 연동</a> · <a href="https://support.google.com/google-ads/answer/7688619" target="_blank" rel="noopener noreferrer">Google Ads 앱 전환 이벤트</a></p>
   </div>
 </section>
