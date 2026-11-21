@@ -649,7 +649,7 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 
 /* 37쪽의 코호트 차트와 리텐션 비교 자료 */
 #cohort-retention .lesson-cohort {
-  grid-template-columns:minmax(0,1.15fr) minmax(0,1.08fr) minmax(0,.85fr);
+  grid-template-columns:minmax(0,1.12fr) minmax(0,1.04fr) minmax(0,.92fr);
   gap:1.4rem; align-items:start;
 }
 #cohort-retention .lesson-heat th:first-child { width:3.55rem; }
@@ -665,16 +665,18 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .retention-bench-table :is(td,th):not(:first-child) { text-align:right; }
 .retention-credit { font-size:.84em; color:var(--muted); margin-top:.46em; }
 .retention-credit a { color:inherit; text-underline-offset:.15em; }
-.retention-example { margin-top:.9em; }
-.retention-example h4 { display:flex; align-items:baseline; gap:.55em; margin:0 0 .1em; font-size:1.13em; }
-.retention-example h4 span { font-size:.84em; font-weight:500; }
-.retention-example h4 b { color:var(--blue); }
-.retention-window { color:var(--muted); }
-.retention-streaming dl { display:grid; grid-template-columns:auto auto; justify-content:start; align-items:baseline; gap:.12em .8em; margin:.22em 0 0; font-size:1.08em; font-weight:650; }
-.retention-streaming dd { color:var(--blue); margin:0; text-align:right; }
-@media (max-aspect-ratio:1/1) {
-  .retention-examples { display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); gap:1em; }
-}
+.retention-services { margin-top:1.05em; }
+.retention-service-table { margin-top:.42em; font-size:1em; line-height:1.28; }
+.retention-service-table :is(th,td) { padding:.40em .24em; vertical-align:middle; }
+.retention-service-table thead th { border-top:0; background:var(--blue-paper); font-size:.89em; }
+.retention-service-table tbody th { background:none; font-weight:670; text-align:left; }
+.retention-service-table small { display:block; margin-top:.16em; font-size:.82em; color:var(--muted); font-weight:400; }
+.retention-service-table :nth-child(2) { text-align:center; white-space:nowrap; }
+.retention-service-table :last-child:is(th,td) { text-align:right; white-space:nowrap; }
+.retention-service-table tbody td:last-child { color:var(--blue); font-size:1.16em; font-weight:740; }
+.retention-refs { display:grid; grid-template-columns:auto 1fr; gap:.16em .65em; margin:.48em 0 0; color:var(--muted); font-size:.84em; line-height:1.35; }
+.retention-refs dd { margin:0; }
+.retention-refs a { color:inherit; text-underline-offset:.15em; }
 @media (max-aspect-ratio:1/1) {
   #cohort-retention .lesson-body { overflow-y:auto; align-content:safe center; }
   #cohort-retention .lesson-cohort { grid-template-columns:minmax(0,1fr); gap:1.2rem; }
@@ -688,12 +690,20 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 @media (max-aspect-ratio:1/1) and (max-height:700px) {
   #cohort-retention .lesson-cohort { gap:.7rem; }
   #cohort-retention .lesson-cohort .lesson-art svg { max-height:16dvh; }
-}
-@media (max-aspect-ratio:1/1) and (max-height:600px) {
+  .retention-service-table :is(th,td) { padding-block:.17em; }
+  .retention-service-table small { display:inline-block; margin:0 0 0 .5em; }
+  .retention-services { margin-top:.5em; }
+  .retention-refs { margin-top:.25em; }
   #cohort-retention .lesson-heat th:first-child { width:22%; }
   #cohort-retention .lesson-heat small { display:inline; margin-left:.3em; }
-  #cohort-retention .lesson-criterion { margin-top:0; }
+}
+@media (max-aspect-ratio:1/1) and (max-height:600px) {
   #cohort-retention .lesson-body { padding-block:0; }
+  .retention-bench { display:grid; grid-template-columns:1fr auto; align-items:baseline; }
+  .retention-bench > h3, .retention-bench-table, .retention-services { grid-column:1 / -1; }
+  .retention-bench > .retention-credit { grid-row:2; grid-column:2; margin:0; }
+  .retention-bench .retention-period { grid-row:2; grid-column:1; margin:.2em 0; }
+  .retention-bench-table :is(th,td) { padding-block:.05em; }
 }
 </style>
 </head>
@@ -1401,20 +1411,23 @@ GROUP BY sale_date, store_id;</code></pre>
     <tbody><tr><th scope="row" lang="en">Consumer social</th><td>25%</td><td>45%</td></tr><tr><th scope="row" lang="en">Consumer transactional</th><td>30%</td><td>50%</td></tr><tr><th scope="row" lang="en">Consumer SaaS</th><td>40%</td><td>70%</td></tr><tr><th scope="row" lang="en">SMB/mid-market SaaS</th><td>60%</td><td>80%</td></tr><tr><th scope="row" lang="en">Enterprise SaaS</th><td>70%</td><td>90%</td></tr></tbody>
   </table>
   <p class="retention-credit">출처　<a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29" target="_blank" rel="noopener noreferrer">Lenny’s Newsletter (2020)</a></p>
-  <div class="retention-examples">
-  <div class="retention-example">
-    <h4>ChatGPT <span>12개월 차</span> <b>75%</b></h4>
-    <p>미국 프리미엄 데스크톱 이용자의 평균 유지율</p>
-    <p class="retention-credit"><a href="https://group.softbank/media/Project/sbg/sbg/pdf/ir/presentations/2025/investor-svf_q4fy2025_01_en.pdf#page=11" target="_blank" rel="noopener noreferrer">Similarweb · SoftBank IR (2026), 11쪽</a></p>
-  </div>
-  <div class="retention-example retention-streaming">
-    <p class="retention-window">미국 첫 결제 고객 · 6개월 구독 유지율</p>
-    <dl><dt>Netflix</dt><dd>72%</dd><dt>Disney+ 월간 단독</dt><dd>62%</dd></dl>
-    <p class="retention-credit"><a href="https://secondmeasure.com/datapoints/streaming-services-customer-retention-ad-free-disney-plus-netfilx-hulu/" target="_blank" rel="noopener noreferrer">Bloomberg Second Measure (2022)</a></p>
-  </div>
+  <div class="retention-services">
+    <h3 id="retention-services-title">서비스별 유지율 · 미국</h3>
+    <table class="retention-service-table" aria-labelledby="retention-services-title">
+      <thead><tr><th scope="col">서비스 · 측정 대상</th><th scope="col">측정 시점</th><th scope="col">유지율</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">ChatGPT<small>프리미엄 데스크톱 이용자</small></th><td>12개월 차</td><td>75%</td></tr>
+        <tr><th scope="row">Netflix<small>첫 결제 고객의 구독 유지</small></th><td>6개월 후</td><td>72%</td></tr>
+        <tr><th scope="row">Disney+ 월간 단독<small>첫 결제 고객의 구독 유지</small></th><td>6개월 후</td><td>62%</td></tr>
+      </tbody>
+    </table>
+    <dl class="retention-refs">
+      <dt>ChatGPT</dt><dd><a href="https://group.softbank/media/Project/sbg/sbg/pdf/ir/presentations/2025/investor-svf_q4fy2025_01_en.pdf#page=11" target="_blank" rel="noopener noreferrer">Similarweb · SoftBank IR (2026), 11쪽</a></dd>
+      <dt>스트리밍</dt><dd><a href="https://secondmeasure.com/datapoints/streaming-services-customer-retention-ad-free-disney-plus-netfilx-hulu/" target="_blank" rel="noopener noreferrer">Bloomberg Second Measure (2022)</a></dd>
+    </dl>
   </div>
 </aside>
-</div><p class="lesson-criterion"><strong>PMF를 볼 때</strong>　반복 사용이 안정되는지 후속 코호트에서도 확인한다. W5까지 관찰된 코호트는 아직 하나다.</p></div>
+</div></div>
 </section>
 <section id="cohort-monthly-revenue" class="slide" aria-labelledby="title-cohort-monthly-revenue" hidden>
   <header class="head"><h2 id="title-cohort-monthly-revenue">월별 코호트의 주간 활성 사용자 수(WAU)</h2></header>
