@@ -324,6 +324,16 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   .section-divider .page-number { right: 1.1rem; top: 1.9rem; }
 }
 
+.qa-question.slide {
+  grid-template-rows: 1fr; place-items: center;
+  padding: clamp(20px, 5vw, 100px);
+}
+.qa-question p {
+  max-width: 28em; text-align: center; text-wrap: balance;
+  font-size: clamp(18px, 2.72rem, 58px); line-height: 1.45;
+  letter-spacing: -.035em; font-weight: 630;
+}
+
 /* 프로젝트 목표 한 문장을 두 행으로 표시한다. */
 .metric-goal-slide .metric-statement {
   place-self: center; text-align: center;
@@ -2388,6 +2398,34 @@ GROUP BY sale_date, store_id;</code></pre>
     </div>
   </div>
 </section>
+<section id="section-qa" class="slide section-divider" aria-labelledby="title-section-qa" hidden>
+  <header class="head"><h1 id="title-section-qa">6. Q&amp;A</h1></header>
+</section>
+<section id="qa-1" class="slide qa-question" aria-labelledby="question-1" hidden>
+  <p id="question-1">1. 실무에서 어떤 데이터분석을 하고 이것이 어떻게 적용되는지 궁금합니다!</p>
+</section>
+<section id="qa-2" class="slide qa-question" aria-labelledby="question-2" hidden>
+  <p id="question-2">2. 데이터 분석가가 현재 업무 흐름에서 AI를 활용하는 정도는 어느 정도인가요? AI agent를 활용해서 어떻게 업무를 하시는지 궁금합니다.</p>
+</section>
+<section id="qa-3" class="slide qa-question" aria-labelledby="question-3" hidden>
+  <p id="question-3">3. DA,PM 직종의 현황과(직무가 하는 일, 시장 상황) 향후 시장에서의 입지</p>
+</section>
+<section id="qa-4" class="slide qa-question" aria-labelledby="question-4" hidden>
+  <p id="question-4">4. 취업을 준비하면서 다양한 프로젝트와 활동에 참여하고 있고, 관련 결과물들을 일단 무작정 아카이빙하고 있는 상황입니다. 이러한 경험들을 어떤 기준으로 구성하고 정리해야 매력적인 포트폴리오를 만들 수 있을지에 대한 구체적인 전략이 궁금합니다.</p>
+</section>
+<section id="qa-5" class="slide qa-question" aria-labelledby="question-5" hidden>
+  <p id="question-5">5. DS를 준비하는 경우, 도메인을 미리 정하고 그 분야를 깊게 준비해야 하나요?<br>
+    도메인을 정하지 않고 기본 학습 및 전공 프로젝트들만 진행한 경우 어떤식으로 포트폴리오를 구성해야하나요?</p>
+</section>
+<section id="qa-6" class="slide qa-question" aria-labelledby="question-6" hidden>
+  <p id="question-6">6. 업무 속도 향상 및 정확한 코드 검증을 위해 데이터 분석에서 AI를 활용하는 비중이 높아지고 있는데, 이러다보니 정작 파이썬이나 SQL에 대한 문법 지식이 퇴화되는 것 같아 걱정입니다. AI 시대에 데이터 분석가로서 코딩 역량을 어느 수준까지 갖춰야 할지 고민입니다.</p>
+</section>
+<section id="qa-7" class="slide qa-question" aria-labelledby="question-7" hidden>
+  <p id="question-7">7. 플랫폼 비즈니스에서의 그로스 마케팅이나 프로덕트 분석 등의 분야에 관심을 가지고 준비하고 있지만, 주변에는 연봉이나 워라밸 등을 고려해 금융권 취업을 준비하는 사람들이 많습니다. 취업 난이도와 근무 환경, 향후 커리어 전망 등을 종합적으로 고려했을 때 현재 관심 있는 분야를 계속 준비하는 것이 괜찮을지 고민입니다.</p>
+</section>
+<section id="qa-8" class="slide qa-question" aria-labelledby="question-8" hidden>
+  <p id="question-8">8. 지금까지 다양한 활동과 프로젝트를 경험해 왔지만, 앞으로는 양보다 질에 집중하고 싶습니다. 기업 입장에서 매력적으로 보일 수 있는 프로젝트를 진행해 보고 싶은데, 어떤 방향성을 가지고 프로젝트를 설계하면 좋을지 고민입니다.</p>
+</section>
 </main>
 <footer class="foot"><nav class="navset" aria-label="발표 조작">
 <button id="notes" aria-haspopup="dialog">발표 노트</button><button id="previous" aria-label="이전 장" title="이전 장 (←)">←</button>
@@ -2564,10 +2602,12 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
 /* === 발표 순서와 발표 노트 === */
 const slides = Array.from(document.querySelectorAll('.slide'));
 slides.forEach((slide, index) => {
+  const header = slide.querySelector('.head');
+  if (!header) return;
   const pageNumber = document.createElement('span');
   pageNumber.className = 'page-number';
   pageNumber.textContent = String(index + 1);
-  slide.querySelector('.head').append(pageNumber);
+  header.append(pageNumber);
 });
 const previous = document.querySelector('#previous');
 const next = document.querySelector('#next');
