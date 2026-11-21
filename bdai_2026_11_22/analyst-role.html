@@ -387,7 +387,7 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 }
 
 /* 분석 흐름의 세로 표와 문제 상황 예시 */
-#analysis-examples { overflow: hidden; }
+#analysis-examples, #analysis-concept-questions { overflow: hidden; }
 .process-examples {
   display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.35fr);
   grid-template-rows: minmax(0, 1fr); align-items: start;
@@ -402,6 +402,7 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .process-sequence th:first-child { white-space: nowrap; }
 .process-sequence tbody th[scope="row"] { color: var(--blue); text-align: center; }
 .process-sequence tbody th[scope="rowgroup"] { vertical-align: middle; }
+.process-questions tbody th[scope="row"] { width: 22%; text-align: left; }
 .process-examples > div { align-self: stretch; display: grid; grid-template-rows: auto 1fr; }
 .process-example-list {
   display: grid; grid-auto-rows: minmax(min-content, 1fr);
@@ -1514,6 +1515,40 @@ GROUP BY sale_date, store_id;</code></pre>
 <figcaption>출처 · 카시와기 요시키, <a href="https://product.kyobobook.co.kr/detail/S000001019698" target="_blank" rel="noopener noreferrer">『데이터 문해력』</a> (프리렉, 2021)</figcaption>
 </figure></div>
 </section>
+<section id="analysis-concept-questions" class="slide" aria-labelledby="title-analysis-concept-questions" hidden>
+  <header class="head"><h2 id="title-analysis-concept-questions">데이터 분석의 흐름과 문제 상황 예시</h2></header>
+  <div class="process-examples">
+    <table class="domain-table process-sequence" aria-label="A부터 G까지의 데이터 분석 흐름">
+      <thead><tr><th scope="col">순서 ↓</th><th scope="col">구분</th><th scope="col">분석 단계</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">A</th><th scope="rowgroup" rowspan="1">현상</th><td>겉으로 드러난 현상</td></tr>
+      </tbody>
+      <tbody>
+        <tr><th scope="row">B</th><th scope="rowgroup" rowspan="2">목적·문제 정의</th><td>목적과 문제 정의</td></tr>
+        <tr><th scope="row">C</th><td>지표 결정</td></tr>
+      </tbody>
+      <tbody>
+        <tr><th scope="row">D</th><th scope="rowgroup" rowspan="2">현상 파악·평가</th><td>현재 상태 파악</td></tr>
+        <tr><th scope="row">E</th><td>평가</td></tr>
+      </tbody>
+      <tbody>
+        <tr><th scope="row">F</th><th scope="rowgroup" rowspan="1">요인</th><td>요인 분석</td></tr>
+      </tbody>
+      <tbody>
+        <tr><th scope="row">G</th><th scope="rowgroup" rowspan="1">방법</th><td>해결 방안 모색</td></tr>
+      </tbody>
+    </table>
+    <table class="domain-table process-sequence process-questions" aria-label="개념별 확인할 질문">
+      <thead><tr><th scope="col">개념</th><th scope="col">확인할 질문</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">현상</th><td>실제로 무슨 일이 일어나고 있는가?</td></tr>
+        <tr><th scope="row">목적</th><td>어떤 상태를 만들고 싶은가?</td></tr>
+        <tr><th scope="row">문제</th><td>현실이 원하는 상태와 얼마나 차이 나는가?</td></tr>
+        <tr><th scope="row">원인</th><td>무엇이 그 차이를 만들어 냈는가?</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 <section id="analysis-examples" class="slide" aria-labelledby="title-analysis-examples" hidden>
   <header class="head"><h2 id="title-analysis-examples">데이터 분석의 흐름과 문제 상황 예시</h2></header>
   <div class="process-examples">
@@ -2132,6 +2167,9 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
   <p>문제를 이상과 현실의 차이로 정의할 때, 비교 기준을 바꾸면 문제가 달라진다. 과거형은 전년 동월 실적, 현재형은 같은 달 목표를 기준으로 한다. 미래형은 목표 시점의 예상 실적과 목표를 비교한다.</p>
 </div>
 <div data-note="analysis-process" hidden><p>제공한 책 사진의 「데이터 활용 프로세스」를 따라 현상에서 해결 방안까지 이어지는 A~G 순서를 재구성했다. B와 C, D와 E가 각각 하나의 묶음이다.</p></div>
+<div data-note="analysis-concept-questions" hidden>
+  <p>분석 요청을 받으면 실제로 관찰된 현상과 원하는 상태를 묻는다. 그 차이가 문제이며, 그 차이를 만들어 냈을 가능성이 있는 요인은 확인할 가설로 다룬다.</p>
+</div>
 <div data-note="analysis-examples" hidden>
   <p>오른쪽 문장은 분석을 시작할 때 접하는 요청과 진술의 예시다. ‘이미지 때문에’처럼 원인이 이미 제시된 문장에서는 관찰한 현상과 확인할 가설을 짚어 본다. 구조 조정이나 유연근무처럼 해법이 먼저 나온 문장에서는 그 해법으로 개선하고 싶은 상태부터 묻는다.</p>
 </div>
