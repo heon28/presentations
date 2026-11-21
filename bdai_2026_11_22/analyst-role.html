@@ -561,7 +561,6 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .lesson-body svg .grid { stroke:#d6dce2; stroke-width:1; }
 .lesson-body svg .lead { fill:none; stroke:#798591; stroke-width:2; }
 .lesson-body h3 { margin:0 0 .65rem; font-size:1.48rem; }
-.lesson-cohort { display:grid; grid-template-columns:1.02fr 1fr; align-items:center; gap:2.7rem; }
 .lesson-heat { border-spacing:.22rem; border-collapse:separate; font-size:1.18rem; table-layout:fixed; text-align:center; }
 .lesson-heat th, .lesson-heat td { border:0; padding:.77rem .1rem; text-align:center; }
 .lesson-heat th { font-size:.99rem; background:transparent; color:var(--muted); }
@@ -582,12 +581,10 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .case-credit { color:var(--muted); font-size:1.02rem; text-decoration-thickness:1px; text-underline-offset:.18em; width:fit-content; }
 @media(max-aspect-ratio:1/1) {
   .lesson-body,.case-body { padding:1.2rem .5rem 2.4rem; gap:2rem; }
-  .lesson-cohort { grid-template-columns:1fr; gap:2rem; }
   .lesson-body ul { font-size:clamp(12px,2.5vw,21px); }
   .lesson-body h3 { font-size:clamp(14px,3vw,24px); }
   .lesson-art svg { max-height:33dvh; }
   .lesson-body .lesson-wide { width:100%; max-height:60dvh; }
-  .lesson-cohort .lesson-art svg { max-height:30dvh; }
   .lesson-heat { font-size:clamp(10px,2.5vw,17px); }
   .lesson-heat th { font-size:clamp(9px,2.2vw,15px); }
   .lesson-body figcaption,.case-image figcaption,.case-credit { font-size:clamp(10px,2.25vw,16px); }
@@ -818,63 +815,51 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 }
 
 
-/* 코호트 차트와 리텐션 비교 자료 */
-#cohort-retention .lesson-cohort {
-  grid-template-columns:minmax(0,1.12fr) minmax(0,1.04fr) minmax(0,.92fr);
-  gap:1.4rem; align-items:start;
+/* 두 코호트 차트 아래에 업종별 기준과 서비스별 수치를 배치한다. */
+#cohort-retention .lesson-body { padding: .6rem 0 .85rem; }
+.lesson-cohort {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(7px, 2.3dvh, 24px) clamp(.65rem, 3.1vw, 3.5rem);
+  align-items: start;
 }
-#cohort-retention .lesson-heat th:first-child { width:3.55rem; }
-#cohort-retention .lesson-art .ax { font-size:16px; }
-#cohort-retention .lesson-heat :is(td,th) { padding-inline:.08rem; }
-.retention-bench { min-width:0; border-left:1px solid var(--line); padding-left:1.18rem; font-size:.99rem; line-height:1.4; }
-.lesson-body .retention-bench h3 { font-size:1.14em; line-height:1.3; margin:0; letter-spacing:-.025em; }
-.retention-period { margin:.25em 0 .65em; color:var(--muted); }
-.retention-bench-table { font-size:.97em; font-variant-numeric:tabular-nums; }
-.retention-bench-table :is(th,td) { padding:.26em .15em; }
-.retention-bench-table thead th { border-top:0; background:var(--blue-paper); }
-.retention-bench-table tbody th { font-weight:500; background:none; }
-.retention-bench-table :is(td,th):not(:first-child) { text-align:right; }
-.retention-credit { font-size:.84em; color:var(--muted); margin-top:.46em; }
-.retention-credit a { color:inherit; text-underline-offset:.15em; }
-.retention-services { margin-top:1.05em; }
-.retention-service-table { margin-top:.42em; font-size:1em; line-height:1.28; }
-.retention-service-table :is(th,td) { padding:.40em .24em; vertical-align:middle; }
-.retention-service-table thead th { border-top:0; background:var(--blue-paper); font-size:.89em; }
-.retention-service-table tbody th { background:none; font-weight:670; text-align:left; }
-.retention-service-table small { display:block; margin-top:.16em; font-size:.82em; color:var(--muted); font-weight:400; }
-.retention-service-table :nth-child(2) { text-align:center; white-space:nowrap; }
-.retention-service-table :last-child:is(th,td) { text-align:right; white-space:nowrap; }
-.retention-service-table tbody td:last-child { color:var(--blue); font-size:1.16em; font-weight:740; }
-.retention-refs { display:grid; grid-template-columns:auto 1fr; gap:.16em .65em; margin:.48em 0 0; color:var(--muted); font-size:.84em; line-height:1.35; }
-.retention-refs dd { margin:0; }
-.retention-refs a { color:inherit; text-underline-offset:.15em; }
-@media (max-aspect-ratio:1/1) {
-  #cohort-retention .lesson-body { overflow-y:auto; align-content:safe center; }
-  #cohort-retention .lesson-cohort { grid-template-columns:minmax(0,1fr); gap:1.2rem; }
-  #cohort-retention .lesson-cohort .lesson-art svg { max-height:19dvh; }
-  #cohort-retention .lesson-heat :is(th,td) { padding-block:.26rem; }
-  #cohort-retention .lesson-heat th:first-child { width:12%; }
-  .retention-bench { border-left:0; border-top:1px solid var(--line); padding:.8rem 0 0; font-size:clamp(11px,2.45vw,17px); }
-  #cohort-retention .lesson-body { gap:1rem; padding-block:.6rem; }
-  .retention-bench-table :is(th,td) { padding-block:.15em; }
+.lesson-cohort > div, .retention-bench { min-width: 0; }
+.lesson-body .lesson-cohort h3 { margin: 0 0 .38em; font-size: clamp(12px, 1.24rem, 30px); }
+.lesson-cohort .lesson-heat { width: 100%; font-size: clamp(9px, 1.03rem, 23px); }
+.lesson-cohort .lesson-heat th:first-child { width: 14%; }
+.lesson-cohort .lesson-heat :is(td,th) { padding: .32em .08em; }
+.lesson-cohort .lesson-legend { padding-block: .28em 0; }
+.lesson-cohort .lesson-art svg { max-height: min(36dvh, 18rem); }
+.lesson-cohort .lesson-art .ax { font-size: 16px; }
+.retention-bench {
+  border-top: 1px solid var(--line); padding-top: .52em;
+  font-size: clamp(10px, 1.04rem, 26px); line-height: 1.32;
 }
-@media (max-aspect-ratio:1/1) and (max-height:700px) {
-  #cohort-retention .lesson-cohort { gap:.7rem; }
-  #cohort-retention .lesson-cohort .lesson-art svg { max-height:16dvh; }
-  .retention-service-table :is(th,td) { padding-block:.17em; }
-  .retention-service-table small { display:inline-block; margin:0 0 0 .5em; }
-  .retention-services { margin-top:.5em; }
-  .retention-refs { margin-top:.25em; }
-  #cohort-retention .lesson-heat th:first-child { width:22%; }
-  #cohort-retention .lesson-heat small { display:inline; margin-left:.3em; }
-}
-@media (max-aspect-ratio:1/1) and (max-height:600px) {
-  #cohort-retention .lesson-body { padding-block:0; }
-  .retention-bench { display:grid; grid-template-columns:1fr auto; align-items:baseline; }
-  .retention-bench > h3, .retention-bench-table, .retention-services { grid-column:1 / -1; }
-  .retention-bench > .retention-credit { grid-row:2; grid-column:2; margin:0; }
-  .retention-bench .retention-period { grid-row:2; grid-column:1; margin:.2em 0; }
-  .retention-bench-table :is(th,td) { padding-block:.05em; }
+.retention-period { margin: .18em 0 .42em; color: var(--muted); font-size: .9em; }
+.retention-bench-table, .retention-service-table { width: 100%; font-variant-numeric: tabular-nums; }
+.retention-bench-table :is(th,td), .retention-service-table :is(th,td) { padding: .21em .46em; }
+.retention-bench thead th { border-top: 0; background: var(--blue-paper); }
+.retention-bench-table tbody th { font-weight: 500; background: none; }
+.retention-bench-table :is(td,th):not(:first-child) { text-align: right; }
+.retention-service-table tbody th { background: none; font-weight: 670; text-align: left; }
+.retention-service-table small { display: block; font-size: .82em; color: var(--muted); font-weight: 400; }
+.retention-service-table :nth-child(2) { text-align: center; white-space: nowrap; }
+.retention-service-table :last-child:is(th,td) { text-align: right; white-space: nowrap; }
+.retention-service-table tbody td:last-child { color: var(--blue); font-size: 1.13em; font-weight: 740; }
+.retention-credit, .retention-refs { color: var(--muted); margin-top: .42em; font-size: .81em; }
+.retention-refs { display: grid; grid-template-columns: auto 1fr; gap: .12em .55em; margin-bottom: 0; }
+.retention-refs dd { margin: 0; }
+.retention-credit a, .retention-refs a { color: inherit; text-underline-offset: .15em; }
+@media (max-aspect-ratio: 1/1) {
+  #cohort-retention .lesson-body { padding: 1.1rem 0; }
+  .lesson-body .lesson-cohort h3 { font-size: clamp(11px, 3vw, 23px); }
+  .lesson-cohort .lesson-heat { border-spacing: .12rem; }
+  .lesson-cohort .lesson-heat th { font-size: .9em; }
+  .lesson-cohort .lesson-heat th:is(:first-child, :nth-child(2)) { width: 17%; }
+  .lesson-cohort .lesson-legend { font-size: clamp(8px, 2.1vw, 15px); }
+  .lesson-cohort .lesson-art svg { max-height: 25dvh; }
+  .retention-bench { font-size: clamp(9px, 2.55vw, 18px); }
+  .retention-bench :is(th,td) { padding-inline: .24em; }
+  .retention-refs { display: block; }
 }
 </style>
 </head>
@@ -1720,7 +1705,8 @@ GROUP BY sale_date, store_id;</code></pre>
     <tbody><tr><th scope="row" lang="en">Consumer social</th><td>25%</td><td>45%</td></tr><tr><th scope="row" lang="en">Consumer transactional</th><td>30%</td><td>50%</td></tr><tr><th scope="row" lang="en">Consumer SaaS</th><td>40%</td><td>70%</td></tr><tr><th scope="row" lang="en">SMB/mid-market SaaS</th><td>60%</td><td>80%</td></tr><tr><th scope="row" lang="en">Enterprise SaaS</th><td>70%</td><td>90%</td></tr></tbody>
   </table>
   <p class="retention-credit">출처　<a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29" target="_blank" rel="noopener noreferrer">Lenny’s Newsletter (2020)</a></p>
-  <div class="retention-services">
+</aside>
+<aside class="retention-bench" aria-labelledby="retention-services-title">
     <h3 id="retention-services-title">서비스별 유지율 · 미국</h3>
     <table class="retention-service-table" aria-labelledby="retention-services-title">
       <thead><tr><th scope="col">서비스 · 측정 대상</th><th scope="col">측정 시점</th><th scope="col">유지율</th></tr></thead>
@@ -1734,7 +1720,6 @@ GROUP BY sale_date, store_id;</code></pre>
       <dt>ChatGPT</dt><dd><a href="https://group.softbank/media/Project/sbg/sbg/pdf/ir/presentations/2025/investor-svf_q4fy2025_01_en.pdf#page=11" target="_blank" rel="noopener noreferrer">Similarweb · SoftBank IR (2026), 11쪽</a></dd>
       <dt>스트리밍</dt><dd><a href="https://secondmeasure.com/datapoints/streaming-services-customer-retention-ad-free-disney-plus-netfilx-hulu/" target="_blank" rel="noopener noreferrer">Bloomberg Second Measure (2022)</a></dd>
     </dl>
-  </div>
 </aside>
 </div></div>
 </section>
