@@ -434,7 +434,6 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .lesson-body svg .grid { stroke:#d6dce2; stroke-width:1; }
 .lesson-body svg .lead { fill:none; stroke:#798591; stroke-width:2; }
 .lesson-body h3 { margin:0 0 .65rem; font-size:1.48rem; }
-.lesson-k { font-size:1.01rem; color:var(--muted); font-weight:650; }
 .lesson-cohort { display:grid; grid-template-columns:1.02fr 1fr; align-items:center; gap:2.7rem; }
 .lesson-heat { border-spacing:.22rem; border-collapse:separate; font-size:1.18rem; table-layout:fixed; text-align:center; }
 .lesson-heat th, .lesson-heat td { border:0; padding:.77rem .1rem; text-align:center; }
@@ -444,14 +443,6 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .lesson-heat .unseen { background:repeating-linear-gradient(135deg,#fafbfc 0 6px,#edf0f2 6px 7px); color:#5c6670; }
 .lesson-legend { display:flex; align-items:center; gap:.35rem; color:var(--muted); font-size:.9rem; padding:.45rem .15rem; }
 .lesson-legend i { width:1rem; height:.65rem; }
-.lesson-action { display:grid; grid-template-columns:1fr auto 1fr; align-items:stretch; gap:1.4rem; }
-.lesson-action > div { padding:1.7rem 1.8rem; background:var(--paper); }
-.lesson-action > div:last-child { background:var(--blue-paper); }
-.lesson-action > span { align-self:center; color:var(--blue); font-size:2.6rem; }
-.lesson-action h3 { font-size:1.75rem; margin:.45rem 0 .8rem; }
-.lesson-action p { font-size:1.32rem; line-height:1.58; }
-.lesson-criterion { margin:.4rem 0 0; font-size:1.32rem; line-height:1.5; }
-.lesson-criterion strong { color:var(--blue); }
 .case-body { min-height:0; display:grid; grid-template-columns:minmax(0,1.51fr) minmax(0,1fr); gap:2.75rem; align-items:center; padding:1.15rem 0 1.8rem; }
 .case-image { display:grid; grid-template-rows:minmax(0,1fr) auto; align-items:center; min-width:0; min-height:0; height:100%; }
 .case-image img { display:block; width:100%; height:100%; min-height:0; object-fit:contain; }
@@ -465,7 +456,7 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 @media(max-aspect-ratio:1/1) {
   .lesson-body,.case-body { padding:1.2rem .5rem 2.4rem; gap:2rem; }
   .lesson-cohort { grid-template-columns:1fr; gap:2rem; }
-  .lesson-body ul,.lesson-criterion,.lesson-action p { font-size:clamp(12px,2.5vw,21px); }
+  .lesson-body ul { font-size:clamp(12px,2.5vw,21px); }
   .lesson-body h3 { font-size:clamp(14px,3vw,24px); }
   .lesson-art svg { max-height:33dvh; }
   .lesson-body .lesson-wide { width:100%; max-height:60dvh; }
@@ -473,8 +464,6 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   .lesson-heat { font-size:clamp(10px,2.5vw,17px); }
   .lesson-heat th { font-size:clamp(9px,2.2vw,15px); }
   .lesson-body figcaption,.case-image figcaption,.case-credit { font-size:clamp(10px,2.25vw,16px); }
-  .lesson-action { grid-template-columns:1fr; gap:.55rem; }
-  .lesson-action > span { display:none; }
   .case-body { grid-template-columns:1fr; grid-template-rows:minmax(0,1.05fr) auto; }
   .case-copy { gap:.7rem; }
   .case-copy h3 { font-size:clamp(11px,2.5vw,18px); }
@@ -1439,10 +1428,6 @@ GROUP BY sale_date, store_id;</code></pre>
   <header class="head"><h2 id="title-analysis-problem">문제 정의</h2></header>
 
 </section>
-<section id="analysis-solution" class="slide" aria-labelledby="title-analysis-solution" hidden>
-  <header class="head"><h2 id="title-analysis-solution">해결 방안 모색</h2></header>
-<div class="lesson-body"><div class="lesson-action"><div><span class="lesson-k">검증할 가설</span><h3>배송 가능 시간을 너무 늦게 알게 된다</h3><p>외곽 고객이 결제 직전에야 원하는 배송 시간이 없음을 발견하면 주문을 포기할 수 있다.</p></div><span aria-hidden="true">→</span><div><span class="lesson-k">실험할 변경</span><h3>상품을 담기 전에 배송 시간을 보여준다</h3><p>외곽 신규 가입자를 무작위로 나눠 기존 화면과 변경 화면의 첫 배송 완료율을 비교한다.</p></div></div><p class="lesson-criterion"><strong>확대 판단</strong>　첫 배송 완료율의 차이와 불확실성을 보고, 전체 주문의 정시 배송률이 95% 이상인지 확인한다.</p></div>
-</section>
 <section id="section-methods" class="slide section-divider" aria-labelledby="title-section-methods" hidden>
   <header class="head"><h1 id="title-section-methods">4. 데이터 분석 방법론</h1></header>
 
@@ -1965,7 +1950,6 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
 <div data-note="section-analysis" hidden><p>장보기 앱의 첫 배송 경험을 사례로 분석 과정을 살펴본다.</p></div>
 <div data-note="analysis-process" hidden><p>제공한 책 사진의 「데이터 활용 프로세스」를 따라 현상에서 해결 방안까지 이어지는 A~G 순서를 재구성했다. B와 C, D와 E가 각각 하나의 묶음이다.</p></div>
 <div data-note="analysis-problem" hidden></div>
-<div data-note="analysis-solution" hidden><p>이 실험은 화면에 배송 가능 시간을 일찍 보여주는 효과를 겨냥한다. 공급 자체가 부족한 문제라면 슬롯 확충을 따로 검토한다. 공급량이 실험군 사이에 영향을 주는 경우에는 배송권역이나 시간대 단위 배정도 검토한다. 예시이므로 실험 결과는 제시하지 않았다.</p></div>
 <div data-note="section-methods" hidden><p>어떤 질문에 어떤 분석 도구를 선택하는지 그래프로 비교한다.</p></div>
 <div data-note="cac-budget" hidden>
   <p>이 예시는 광고비만 포함한 유료 획득 CAC다. 실제 집계에서는 확정된 매체 비용과 주문 내역을 붙이고, 취소를 제외한 고객별 첫 구매를 한 번만 인정한다. 구매까지 시간이 걸리므로 비교하는 유입 코호트의 관측 기간을 맞춘다. 룩백 윈도우와 기여 모델도 동일하게 적용한다.</p>
