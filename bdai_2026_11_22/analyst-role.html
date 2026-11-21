@@ -516,31 +516,43 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 }
 .hypothesis-root span { display: block; margin-bottom: .14em; font-size: .76em; }
 .hypothesis-root strong { font-size: 1.19em; }
-.hypothesis-branches {
+.hypothesis-branches, .hypothesis-questions {
   position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1em; list-style: none; margin: 0; padding: 2em 0 0;
+  gap: var(--branch-gap); list-style: none; margin: 0; padding: var(--branch-stem) 0 0;
 }
-.hypothesis-branches::before, .hypothesis-branches::after { content: ""; position: absolute; }
-.hypothesis-branches::before { top: 0; left: 50%; height: 1em; border-left: 2px solid var(--line); }
-.hypothesis-branches::after {
-  top: 1em; left: 25%; right: 25%; height: 1em;
+.hypothesis-branches { --branch-gap: 1.05em; --branch-stem: 1.65em; }
+.hypothesis-questions { --branch-gap: .6em; --branch-stem: 1.35em; }
+:is(.hypothesis-branches, .hypothesis-questions)::before,
+:is(.hypothesis-branches, .hypothesis-questions)::after { content: ""; position: absolute; }
+:is(.hypothesis-branches, .hypothesis-questions)::before {
+  top: 0; left: 50%; height: calc(var(--branch-stem) / 2); border-left: 2px solid var(--line);
+}
+:is(.hypothesis-branches, .hypothesis-questions)::after {
+  top: calc(var(--branch-stem) / 2); height: calc(var(--branch-stem) / 2);
+  inset-inline: calc(25% - var(--branch-gap) / 4);
   border: 2px solid var(--line); border-bottom: 0;
 }
-.hypothesis-branches > li { min-width: 0; background: var(--paper); padding: .8em .95em; }
-.hypothesis-branches h3 { font-size: 1.1em; }
-.hypothesis-branches h3 span { color: var(--blue); }
-.hypothesis-questions {
-  display: grid; gap: .5em; list-style: none; margin: .55em 0 0;
-  padding: .55em 0 0; border-top: 1px solid var(--line);
+.hypothesis-group { background: var(--blue-paper); padding: .53em .44em; text-align: center; }
+.hypothesis-group h3 { font-size: 1.13em; }
+.hypothesis-group p { color: var(--blue); font-size: .77em; }
+.hypothesis-questions strong {
+  display: block; padding: .5em .25em; background: var(--paper); text-align: center;
 }
-.hypothesis-questions span { display: block; margin-top: .1em; font-size: .88em; }
+.hypothesis-followup {
+  position: relative; margin-top: .45em; padding: .38em .48em; border-top: 1px solid var(--line);
+  font-size: .83em;
+}
+.hypothesis-followup::before {
+  content: ""; position: absolute; bottom: 100%; left: 50%; height: .54em; border-left: 2px solid var(--line);
+}
 .hypothesis-scope { margin-top: .85em; color: var(--muted); font-size: .76em; }
 @media (max-aspect-ratio: 1/1) {
   .problem-comparison, .problem-hypotheses { font-size: clamp(13px, 3.55vw, 23px); }
   .problem-comparison blockquote { font-size: clamp(18px, 5.3vw, 42px); }
   .problem-before .process-label { font-size: max(10px, .49em); }
-  .hypothesis-branches { gap: .75em; }
-  .hypothesis-branches > li { padding-inline: .65em; }
+  .hypothesis-branches { --branch-gap: .72em; }
+  .hypothesis-questions { --branch-gap: .34em; }
+  .hypothesis-followup { padding-inline: .16em; }
 }
 
 /* 원인 후보를 좁히고 해결 방안의 효과를 검증하는 흐름 */
@@ -1709,19 +1721,31 @@ GROUP BY sale_date, store_id;</code></pre>
       <span>문제 · 가상 사례</span>
       <strong>2025년 A군 20~34세 인구가 전년보다 100명 감소했다.</strong>
     </div>
-    <ul class="hypothesis-branches" aria-label="전체 인구 증감을 자연증감과 사회증감으로 나눈 원인 가설">
+    <ul class="hypothesis-branches" aria-label="1단계 · 자연증감과 사회증감">
       <li>
-        <h3>자연증감 <span>＝ 출생 − 사망</span></h3>
-        <ul class="hypothesis-questions">
-          <li><strong>출생이 줄었나?</strong></li>
+        <div class="hypothesis-group">
+          <h3>자연증감이 줄었나?</h3>
+          <p>자연증감 ＝ 출생 − 사망</p>
+        </div>
+        <ul class="hypothesis-questions" aria-label="2단계 · 출생과 사망">
+          <li><strong>출생이 늘었나?</strong></li>
           <li><strong>사망이 늘었나?</strong></li>
         </ul>
       </li>
       <li>
-        <h3>사회증감 <span>＝ 전입 − 전출</span></h3>
-        <ul class="hypothesis-questions">
-          <li><strong>전입이 줄었나?</strong><span>어느 연령대에서, 어느 지역 출신의 전입이 줄었는가?</span></li>
-          <li><strong>전출이 늘었나?</strong><span>어느 연령대가, 어느 지역으로, 어떤 이유로 떠났는가?</span></li>
+        <div class="hypothesis-group">
+          <h3>사회증감이 줄었나?</h3>
+          <p>사회증감 ＝ 전입 − 전출</p>
+        </div>
+        <ul class="hypothesis-questions" aria-label="2단계 · 전입과 전출">
+          <li>
+            <strong>전입이 줄었나?</strong>
+            <p class="hypothesis-followup">어느 연령대에서, 어느 지역 출신의 전입이 줄었는가?</p>
+          </li>
+          <li>
+            <strong>전출이 늘었나?</strong>
+            <p class="hypothesis-followup">어느 연령대가, 어느 지역으로, 어떤 이유로 떠났는가?</p>
+          </li>
         </ul>
       </li>
     </ul>
@@ -2284,7 +2308,7 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
   <p>『데이터 문해력』의 인구 감소 예시를 바탕으로 재구성했다. Before에서 지역·대상·기간, 측정 지표, 해결 방안, 비교 기준을 확인한다. After는 A군 20~34세 인구수라는 지표를 동일 기준일의 2024년 400명과 2025년 300명으로 비교한 가상 사례다. <a href="https://data-story.net/post/toranomaki-98/" target="_blank" rel="noopener noreferrer">카시와기 요시키의 인구 감소 사례 해설</a></p>
 </div>
 <div data-note="logic-tree" hidden>
-  <p>자연증감은 출생에서 사망을, 사회증감은 전입에서 전출을 뺀 전체 인구의 증감 요인이다. 표시된 네 질문으로 어떤 항목이 과거보다 달라졌는지 확인한다. 전출 사유는 이동 기록과 설문·인터뷰를 함께 검토한다.</p>
+  <p>자연증감은 출생에서 사망을, 사회증감은 전입에서 전출을 뺀 전체 인구의 증감 요인이다. 이전 기간과 비교해 출생·사망·전입·전출이 각각 얼마나 변했는지 확인한다. 출생이 늘어도 사망이 더 많이 늘면 자연증감이 줄어든다. 전출 사유는 이동 기록과 설문·인터뷰를 함께 검토한다.</p>
   <p>같은 연령 범위인 20~34세를 전년과 비교하면 포함된 출생연도 집단이 달라진다. 해당 연령대의 사망과 전입·전출, 19세에서 20세가 된 사람과 34세에서 35세가 된 사람을 함께 확인한다. 당해 출생은 0세 인구에 반영된다. <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationprojections/methodologies/methodologyusedtoproducethenationalpopulationprojections" target="_blank" rel="noopener noreferrer">영국 통계청의 코호트 요인법</a></p>
 </div>
 <div data-note="cause-validation" hidden>
