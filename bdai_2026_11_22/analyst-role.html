@@ -736,6 +736,9 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .econ-methodresult { text-align: right; font-size: 1.97rem; font-weight: 760; color: var(--blue); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .econ-methodheader span:last-child { text-align: right; }
 .econ-cc { grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); column-gap: 2.65rem; align-items: center; }
+.econ-body .econ-cc-credit { grid-column: 1 / -1; font-size: clamp(11px, 1.02rem, 25px); }
+.econ-cc-credit a { color: inherit; text-underline-offset: .17em; }
+.econ-cc .econ-chart { max-height: 62dvh; }
 .econ-plot { min-width: 0; }
 .econ-legend { display: flex; align-items: center; gap: 1.25rem; margin: .65rem 0 .2rem; font-size: 1.05rem; font-weight: 625; }
 .econ-key { display: inline-flex; align-items: center; gap: .4rem; }
@@ -1855,6 +1858,7 @@ GROUP BY sale_date, store_id;</code></pre>
     <div><p class="econ-kicker">유입과 이탈이 같아지는 지점</p><p class="econ-model">CC = 월 유입 ÷ 월 이탈률</p><p class="econ-caption">월 유입 인원과 전월 활성 사용자 중 이번 달 이탈하는 비율이 일정하다고 가정한다.</p></div>
     <div class="econ-cc-result">200명 ÷ 20% = 1,000명<br><strong>200명 ÷ 10% = 2,000명</strong></div>
   </div>
+  <p class="econ-caption econ-cc-credit">영상 · <a href="https://www.youtube.com/watch?v=tcrr2QiXt9M" target="_blank" rel="noopener noreferrer">토스 PO SESSION에서 Carrying Capacity 보기 (YouTube)</a></p>
 </div>
 </section>
 <section id="duolingo-user-states" class="slide" aria-labelledby="title-duolingo-user-states" hidden>
