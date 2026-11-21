@@ -367,13 +367,17 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .process-sequence th:first-child { white-space: nowrap; }
 .process-sequence tbody th[scope="row"] { color: var(--blue); text-align: center; }
 .process-sequence tbody th[scope="rowgroup"] { vertical-align: middle; }
-.process-example-list { margin: 0; padding: 0 0 0 1.25em; }
+.process-examples > div { align-self: stretch; display: grid; grid-template-rows: auto 1fr; }
+.process-example-list {
+  display: grid; grid-auto-rows: minmax(min-content, 1fr);
+  margin: 0; padding: 0 0 0 1.25em;
+}
 .process-example-list li { padding-block-end: 1lh; }
 .process-example-list li::marker { color: var(--blue); }
 .process-examples h3 { margin: 0 0 .55em; color: var(--blue); font-size: 1.08em; }
 @media (max-aspect-ratio: 1/1) {
   .process-examples {
-    grid-template-columns: 1fr; grid-template-rows: auto auto; align-content: start;
+    grid-template-columns: 1fr; grid-template-rows: auto minmax(min-content, 1fr);
     gap: 1.15em; padding: 1.4dvh .4rem 0;
     font-size: clamp(12px, min(3.2vw, 2.4dvh), 20px);
   }
