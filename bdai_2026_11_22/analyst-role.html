@@ -646,6 +646,55 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   .bio-projects li + li, .bio-brand figcaption { margin-top:0; }
 }
 
+
+/* 37쪽의 코호트 차트와 리텐션 비교 자료 */
+#cohort-retention .lesson-cohort {
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1.08fr) minmax(0,.85fr);
+  gap:1.4rem; align-items:start;
+}
+#cohort-retention .lesson-heat th:first-child { width:3.55rem; }
+#cohort-retention .lesson-art .ax { font-size:16px; }
+#cohort-retention .lesson-heat :is(td,th) { padding-inline:.08rem; }
+.retention-bench { min-width:0; border-left:1px solid var(--line); padding-left:1.18rem; font-size:.99rem; line-height:1.4; }
+.lesson-body .retention-bench h3 { font-size:1.14em; line-height:1.3; margin:0; letter-spacing:-.025em; }
+.retention-period { margin:.25em 0 .65em; color:var(--muted); }
+.retention-bench-table { font-size:.97em; font-variant-numeric:tabular-nums; }
+.retention-bench-table :is(th,td) { padding:.26em .15em; }
+.retention-bench-table thead th { border-top:0; background:var(--blue-paper); }
+.retention-bench-table tbody th { font-weight:500; background:none; }
+.retention-bench-table :is(td,th):not(:first-child) { text-align:right; }
+.retention-credit { font-size:.84em; color:var(--muted); margin-top:.46em; }
+.retention-credit a { color:inherit; text-underline-offset:.15em; }
+.retention-example { margin-top:.9em; }
+.retention-example h4 { display:flex; align-items:baseline; gap:.55em; margin:0 0 .1em; font-size:1.13em; }
+.retention-example h4 span { font-size:.84em; font-weight:500; }
+.retention-example h4 b { color:var(--blue); }
+.retention-window { color:var(--muted); }
+.retention-streaming dl { display:grid; grid-template-columns:auto auto; justify-content:start; align-items:baseline; gap:.12em .8em; margin:.22em 0 0; font-size:1.08em; font-weight:650; }
+.retention-streaming dd { color:var(--blue); margin:0; text-align:right; }
+@media (max-aspect-ratio:1/1) {
+  .retention-examples { display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); gap:1em; }
+}
+@media (max-aspect-ratio:1/1) {
+  #cohort-retention .lesson-body { overflow-y:auto; align-content:safe center; }
+  #cohort-retention .lesson-cohort { grid-template-columns:minmax(0,1fr); gap:1.2rem; }
+  #cohort-retention .lesson-cohort .lesson-art svg { max-height:19dvh; }
+  #cohort-retention .lesson-heat :is(th,td) { padding-block:.26rem; }
+  #cohort-retention .lesson-heat th:first-child { width:12%; }
+  .retention-bench { border-left:0; border-top:1px solid var(--line); padding:.8rem 0 0; font-size:clamp(11px,2.45vw,17px); }
+  #cohort-retention .lesson-body { gap:1rem; padding-block:.6rem; }
+  .retention-bench-table :is(th,td) { padding-block:.15em; }
+}
+@media (max-aspect-ratio:1/1) and (max-height:700px) {
+  #cohort-retention .lesson-cohort { gap:.7rem; }
+  #cohort-retention .lesson-cohort .lesson-art svg { max-height:16dvh; }
+}
+@media (max-aspect-ratio:1/1) and (max-height:600px) {
+  #cohort-retention .lesson-heat th:first-child { width:22%; }
+  #cohort-retention .lesson-heat small { display:inline; margin-left:.3em; }
+  #cohort-retention .lesson-criterion { margin-top:0; }
+  #cohort-retention .lesson-body { padding-block:0; }
+}
 </style>
 </head>
 <body>
@@ -1343,7 +1392,29 @@ GROUP BY sale_date, store_id;</code></pre>
 </section>
 <section id="cohort-retention" class="slide" aria-labelledby="title-cohort-retention" hidden>
   <header class="head"><h2 id="title-cohort-retention">코호트 리텐션과 PMF</h2></header>
-<div class="lesson-body"><div class="lesson-cohort"><div><h3>가입 주차별 재방문율 · 가상 코호트</h3><table class="lesson-heat" aria-label="가입 주차 코호트별 재방문율"><thead><tr><th>가입 주</th><th>W0</th><th>W1</th><th>W2</th><th>W3</th><th>W4</th><th>W5</th></tr></thead><tbody><tr><th scope="row">9/7<small>100명</small></th><td style="background:#184d99;color:white">100%</td><td style="background:#b0cbe4;color:#1b2026">55%</td><td style="background:#d8e7f4;color:#1b2026">41%</td><td style="background:#d8e7f4;color:#1b2026">34%</td><td style="background:#d8e7f4;color:#1b2026">32%</td><td style="background:#d8e7f4;color:#1b2026">32%</td></tr><tr><th scope="row">9/14<small>200명</small></th><td style="background:#184d99;color:white">100%</td><td style="background:#4777a7;color:white">60%</td><td style="background:#d8e7f4;color:#1b2026">44%</td><td style="background:#d8e7f4;color:#1b2026">36%</td><td style="background:#d8e7f4;color:#1b2026">35%</td><td class="unseen" aria-label="미관측">–</td></tr><tr><th scope="row">9/21<small>100명</small></th><td style="background:#184d99;color:white">100%</td><td style="background:#4777a7;color:white">64%</td><td style="background:#b0cbe4;color:#1b2026">47%</td><td style="background:#d8e7f4;color:#1b2026">40%</td><td class="unseen" aria-label="미관측">–</td><td class="unseen" aria-label="미관측">–</td></tr><tr><th scope="row">9/28<small>200명</small></th><td style="background:#184d99;color:white">100%</td><td style="background:#4777a7;color:white">66%</td><td style="background:#b0cbe4;color:#1b2026">50%</td><td class="unseen" aria-label="미관측">–</td><td class="unseen" aria-label="미관측">–</td><td class="unseen" aria-label="미관측">–</td></tr></tbody></table><div class="lesson-legend">낮음 <i style="background:#d8e7f4"></i><i style="background:#b0cbe4"></i><i style="background:#4777a7"></i><i style="background:#184d99"></i> 높음　 /　 – 미관측</div></div><div><h3>평균 리텐션 · 고객 수로 가중</h3><figure class="lesson-art"><svg class="" viewBox="0 0 475 283" role="img" aria-label="평균 리텐션. W0 100%, W1 61.8%, W2 46%, W3 36.5%, W4 34%, W5 32%."><line x1="49" y1="246.0" x2="458" y2="246.0" stroke="#c7cfd8" stroke-width="1" stroke-dasharray=""/><text x="39" y="251.0" font-size="15" text-anchor="end" class="ax">0%</text><line x1="49" y1="197.5" x2="458" y2="197.5" stroke="#c7cfd8" stroke-width="1" stroke-dasharray=""/><text x="39" y="202.5" font-size="15" text-anchor="end" class="ax">25%</text><line x1="49" y1="149.0" x2="458" y2="149.0" stroke="#c7cfd8" stroke-width="1" stroke-dasharray=""/><text x="39" y="154.0" font-size="15" text-anchor="end" class="ax">50%</text><line x1="49" y1="100.5" x2="458" y2="100.5" stroke="#c7cfd8" stroke-width="1" stroke-dasharray=""/><text x="39" y="105.5" font-size="15" text-anchor="end" class="ax">75%</text><line x1="49" y1="52.0" x2="458" y2="52.0" stroke="#c7cfd8" stroke-width="1" stroke-dasharray=""/><text x="39" y="57.0" font-size="15" text-anchor="end" class="ax">100%</text><polyline points="53,52.00 130,126.04 208,156.76 285,175.19 362,180.04 439,183.92" fill="none" stroke="#184d99" stroke-width="4"/><circle cx="53" cy="52.0" r="5.5" fill="#184d99"/><text x="56" y="38.0" font-size="16" text-anchor="middle" class="bl v">100%</text><text x="53" y="270" font-size="16" text-anchor="middle" class="ax">W0</text><circle cx="130" cy="126.04333333333334" r="5.5" fill="#184d99"/><text x="133" y="112.04333333333334" font-size="16" text-anchor="middle" class="bl v">61.8%</text><text x="130" y="270" font-size="16" text-anchor="middle" class="ax">W1</text><circle cx="208" cy="156.76" r="5.5" fill="#184d99"/><text x="211" y="142.76" font-size="16" text-anchor="middle" class="bl v">46%</text><text x="208" y="270" font-size="16" text-anchor="middle" class="ax">W2</text><circle cx="285" cy="175.19" r="5.5" fill="#184d99"/><text x="288" y="161.19" font-size="16" text-anchor="middle" class="bl v">36.5%</text><text x="285" y="270" font-size="16" text-anchor="middle" class="ax">W3</text><circle cx="362" cy="180.04000000000002" r="5.5" fill="#184d99"/><text x="365" y="166.04000000000002" font-size="16" text-anchor="middle" class="bl v">34%</text><text x="362" y="270" font-size="16" text-anchor="middle" class="ax">W4</text><circle cx="439" cy="183.92000000000002" r="5.5" fill="#184d99"/><text x="442" y="169.92000000000002" font-size="16" text-anchor="middle" class="bl v">32%</text><text x="439" y="270" font-size="16" text-anchor="middle" class="ax">W5</text></svg></figure></div></div><p class="lesson-criterion"><strong>PMF를 볼 때</strong>　반복 사용이 안정되는지 후속 코호트에서도 확인한다. W5까지 관찰된 코호트는 아직 하나다.</p></div>
+<div class="lesson-body"><div class="lesson-cohort"><div><h3>가입 주차별 재방문율 · 가상 코호트</h3><table class="lesson-heat" aria-label="가입 주차 코호트별 재방문율"><thead><tr><th>가입 주</th><th>W0</th><th>W1</th><th>W2</th><th>W3</th><th>W4</th><th>W5</th></tr></thead><tbody><tr><th scope="row">9/7<small>100명</small></th><td style="background:#184d99;color:white">100%</td><td style="background:#b0cbe4;color:#1b2026">55%</td><td style="background:#d8e7f4;color:#1b2026">41%</td><td style="background:#d8e7f4;color:#1b2026">34%</td><td style="background:#d8e7f4;color:#1b2026">32%</td><td style="background:#d8e7f4;color:#1b2026">32%</td></tr><tr><th scope="row">9/14<small>200명</small></th><td style="background:#184d99;color:white">100%</td><td style="background:#4777a7;color:white">60%</td><td style="background:#d8e7f4;color:#1b2026">44%</td><td style="background:#d8e7f4;color:#1b2026">36%</td><td style="background:#d8e7f4;color:#1b2026">35%</td><td class="unseen" aria-label="미관측">–</td></tr><tr><th scope="row">9/21<small>100명</small></th><td style="background:#184d99;color:white">100%</td><td style="background:#4777a7;color:white">64%</td><td style="background:#b0cbe4;color:#1b2026">47%</td><td style="background:#d8e7f4;color:#1b2026">40%</td><td class="unseen" aria-label="미관측">–</td><td class="unseen" aria-label="미관측">–</td></tr><tr><th scope="row">9/28<small>200명</small></th><td style="background:#184d99;color:white">100%</td><td style="background:#4777a7;color:white">66%</td><td style="background:#b0cbe4;color:#1b2026">50%</td><td class="unseen" aria-label="미관측">–</td><td class="unseen" aria-label="미관측">–</td><td class="unseen" aria-label="미관측">–</td></tr></tbody></table><div class="lesson-legend">낮음 <i style="background:#d8e7f4"></i><i style="background:#b0cbe4"></i><i style="background:#4777a7"></i><i style="background:#184d99"></i> 높음　 /　 – 미관측</div></div><div><h3>평균 리텐션 · 고객 수로 가중</h3><figure class="lesson-art"><svg class="" viewBox="0 0 475 283" role="img" aria-label="평균 리텐션. W0 100%, W1 61.8%, W2 46%, W3 36.5%, W4 34%, W5 32%."><line x1="49" y1="246.0" x2="458" y2="246.0" stroke="#c7cfd8" stroke-width="1" stroke-dasharray=""/><text x="39" y="251.0" font-size="15" text-anchor="end" class="ax">0%</text><line x1="49" y1="197.5" x2="458" y2="197.5" stroke="#c7cfd8" stroke-width="1" stroke-dasharray=""/><text x="39" y="202.5" font-size="15" text-anchor="end" class="ax">25%</text><line x1="49" y1="149.0" x2="458" y2="149.0" stroke="#c7cfd8" stroke-width="1" stroke-dasharray=""/><text x="39" y="154.0" font-size="15" text-anchor="end" class="ax">50%</text><line x1="49" y1="100.5" x2="458" y2="100.5" stroke="#c7cfd8" stroke-width="1" stroke-dasharray=""/><text x="39" y="105.5" font-size="15" text-anchor="end" class="ax">75%</text><line x1="49" y1="52.0" x2="458" y2="52.0" stroke="#c7cfd8" stroke-width="1" stroke-dasharray=""/><text x="39" y="57.0" font-size="15" text-anchor="end" class="ax">100%</text><polyline points="53,52.00 130,126.04 208,156.76 285,175.19 362,180.04 439,183.92" fill="none" stroke="#184d99" stroke-width="4"/><circle cx="53" cy="52.0" r="5.5" fill="#184d99"/><text x="56" y="38.0" font-size="16" text-anchor="middle" class="bl v">100%</text><text x="53" y="270" font-size="16" text-anchor="middle" class="ax">W0</text><circle cx="130" cy="126.04333333333334" r="5.5" fill="#184d99"/><text x="133" y="112.04333333333334" font-size="16" text-anchor="middle" class="bl v">61.8%</text><text x="130" y="270" font-size="16" text-anchor="middle" class="ax">W1</text><circle cx="208" cy="156.76" r="5.5" fill="#184d99"/><text x="211" y="142.76" font-size="16" text-anchor="middle" class="bl v">46%</text><text x="208" y="270" font-size="16" text-anchor="middle" class="ax">W2</text><circle cx="285" cy="175.19" r="5.5" fill="#184d99"/><text x="288" y="161.19" font-size="16" text-anchor="middle" class="bl v">36.5%</text><text x="285" y="270" font-size="16" text-anchor="middle" class="ax">W3</text><circle cx="362" cy="180.04000000000002" r="5.5" fill="#184d99"/><text x="365" y="166.04000000000002" font-size="16" text-anchor="middle" class="bl v">34%</text><text x="362" y="270" font-size="16" text-anchor="middle" class="ax">W4</text><circle cx="439" cy="183.92000000000002" r="5.5" fill="#184d99"/><text x="442" y="169.92000000000002" font-size="16" text-anchor="middle" class="bl v">32%</text><text x="439" y="270" font-size="16" text-anchor="middle" class="ax">W5</text></svg></figure></div>
+<aside class="retention-bench" aria-labelledby="retention-bench-title">
+  <h3 id="retention-bench-title" lang="en">GOOD and GREAT user retention</h3>
+  <p class="retention-period">6개월 리텐션 · 업종별 대략적인 기준</p>
+  <table class="retention-bench-table" aria-labelledby="retention-bench-title">
+    <thead><tr><th scope="col">업종</th><th scope="col">GOOD</th><th scope="col">GREAT</th></tr></thead>
+    <tbody><tr><th scope="row" lang="en">Consumer social</th><td>25%</td><td>45%</td></tr><tr><th scope="row" lang="en">Consumer transactional</th><td>30%</td><td>50%</td></tr><tr><th scope="row" lang="en">Consumer SaaS</th><td>40%</td><td>70%</td></tr><tr><th scope="row" lang="en">SMB/mid-market SaaS</th><td>60%</td><td>80%</td></tr><tr><th scope="row" lang="en">Enterprise SaaS</th><td>70%</td><td>90%</td></tr></tbody>
+  </table>
+  <p class="retention-credit">출처　<a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29" target="_blank" rel="noopener noreferrer">Lenny’s Newsletter (2020)</a></p>
+  <div class="retention-examples">
+  <div class="retention-example">
+    <h4>ChatGPT <span>12개월 차</span> <b>75%</b></h4>
+    <p>미국 프리미엄 데스크톱 이용자의 평균 유지율</p>
+    <p class="retention-credit"><a href="https://group.softbank/media/Project/sbg/sbg/pdf/ir/presentations/2025/investor-svf_q4fy2025_01_en.pdf#page=11" target="_blank" rel="noopener noreferrer">Similarweb · SoftBank IR (2026), 11쪽</a></p>
+  </div>
+  <div class="retention-example retention-streaming">
+    <p class="retention-window">미국 첫 결제 고객 · 6개월 구독 유지율</p>
+    <dl><dt>Netflix</dt><dd>72%</dd><dt>Disney+ 월간 단독</dt><dd>62%</dd></dl>
+    <p class="retention-credit"><a href="https://secondmeasure.com/datapoints/streaming-services-customer-retention-ad-free-disney-plus-netfilx-hulu/" target="_blank" rel="noopener noreferrer">Bloomberg Second Measure (2022)</a></p>
+  </div>
+  </div>
+</aside>
+</div><p class="lesson-criterion"><strong>PMF를 볼 때</strong>　반복 사용이 안정되는지 후속 코호트에서도 확인한다. W5까지 관찰된 코호트는 아직 하나다.</p></div>
 </section>
 <section id="cohort-monthly-revenue" class="slide" aria-labelledby="title-cohort-monthly-revenue" hidden>
   <header class="head"><h2 id="title-cohort-monthly-revenue">월별 코호트의 주간 활성 사용자 수(WAU)</h2></header>
@@ -1792,7 +1863,8 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
 <div data-note="section-methods" hidden><p>어떤 질문에 어떤 분석 도구를 선택하는지 그래프로 비교한다.</p></div>
 <div data-note="abc-pareto" hidden><p>ABC 분석은 약속한 기준값으로 항목을 정렬한 뒤 기여도의 누적 비중에 따라 분류한다. 여기서는 A를 누적 80%, B를 80% 초과~95%, C를 나머지로 정했다. 재고관리에서는 연간 사용금액 등을 기준으로 삼을 수도 있다. 80/20은 집중도를 설명하는 경험칙이며 임계값은 목적과 분석 데이터에 맞춰 정한다. <a href="https://docs.oracle.com/en/cloud/saas/supply-chain-and-manufacturing/25c/faims/overview-of-abc-analysis.html" target="_blank" rel="noopener">Oracle · Overview of ABC Analysis</a></p></div>
 <div data-note="duolingo-onboarding-funnel" hidden>공식 가이드에는 언어 선택, 학습 동기와 목표에 관한 질문, 알림 허용, 시작 수준 선택이 나옵니다. 여기서는 첫 레슨까지의 여정에서 세 장면을 골랐습니다. 마지막 사진은 가이드가 제시한 레슨 문제 예시입니다. AARRR의 다섯 범주에 듀오링고에서 관찰할 수 있는 행동을 대응시켰습니다. 예를 들어 첫 실행자를 기준으로 충분한 관찰 기간이 지난 뒤 24시간 안에 첫 레슨을 마친 사람의 비율을 계산할 수 있습니다. 24시간은 이 발표에서 정한 분석 창입니다. 첫 레슨을 완료한 사용자 수는 레슨 완료 이벤트로 확인합니다. 이와 같이 퍼널을 정의하면 어느 단계에서 사용자 수가 줄었는지 확인하고 원인을 따로 조사할 수 있습니다. <a href="https://blog.duolingo.com/duolingo-101-how-to-learn-a-language-on-duolingo/" target="_blank" rel="noopener noreferrer">Duolingo 101 · 공식 화면과 학습 순서</a> · <a href="https://www.slideshare.net/slideshow/startup-metrics-for-pirates-presentation/629833" target="_blank" rel="noopener noreferrer">Dave McClure · Startup Metrics for Pirates</a></div>
-<div data-note="cohort-retention" hidden><p>교육용 가상 데이터다. W0는 가입 주, W1부터는 각 주에 한 번 이상 다시 사용한 가입자의 비율이다. 특정 주에 돌아온 고객만 세므로 연속 방문을 요구하지 않는다. 평균은 해당 주를 온전히 관찰한 코호트의 재방문자 합을 그 코호트들의 최초 가입자 합으로 나눈 값이다. 예를 들어 W4는 (32+70)/(100+200)=34%다. 코호트 구성이 주마다 바뀌므로 평균 하나로 PMF(제품·시장 적합성)를 확정할 수 없다. <a href="https://amplitude.com/docs/analytics/charts/retention-analysis/retention-analysis-interpret" target="_blank" rel="noopener">Amplitude · Retention Analysis</a> · <a href="https://articles.sequoiacap.com/measuring-product-health" target="_blank" rel="noopener">Sequoia · Measuring Product Health</a></p></div>
+<div data-note="cohort-retention" hidden><p>교육용 가상 데이터다. W0는 가입 주, W1부터는 각 주에 한 번 이상 다시 사용한 가입자의 비율이다. 특정 주에 돌아온 고객만 세므로 연속 방문을 요구하지 않는다. 평균은 해당 주를 온전히 관찰한 코호트의 재방문자 합을 그 코호트들의 최초 가입자 합으로 나눈 값이다. 예를 들어 W4는 (32+70)/(100+200)=34%다. 코호트 구성이 주마다 바뀌므로 평균 하나로 PMF(제품·시장 적합성)를 확정할 수 없다. <a href="https://amplitude.com/docs/analytics/charts/retention-analysis/retention-analysis-interpret" target="_blank" rel="noopener">Amplitude · Retention Analysis</a> · <a href="https://articles.sequoiacap.com/measuring-product-health" target="_blank" rel="noopener">Sequoia · Measuring Product Health</a></p><p>오른쪽 표는 2020년 성장 실무자 20명에게 물은 6개월 사용자 유지율의 기준이다. 소셜은 가입자, 거래형 서비스는 첫 거래 고객, 소비자 SaaS는 유료 구독 시작 고객, 기업용 SaaS는 고객사를 기준으로 본다. Enterprise SaaS의 GOOD은 글 상단 요약이 약 70%, 본문 소제목이 약 75%로 달라 표에는 상단 요약 수치를 사용했다. <a href="https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29" target="_blank" rel="noopener noreferrer">What is good retention?</a></p>
+<p>ChatGPT는 2023년 12월~2026년 3월의 월별 코호트를 사용한 Similarweb 추정치다. 미국 프리미엄 데스크톱 이용자를 대상으로 12개월 차 평균을 측정했다. 6개월 벤치마크와 비교할 때는 관찰 기간과 모집단이 다르다는 점을 설명한다. <a href="https://group.softbank/media/Project/sbg/sbg/pdf/ir/presentations/2025/investor-svf_q4fy2025_01_en.pdf#page=11" target="_blank" rel="noopener noreferrer">SoftBank 투자자 설명회, 11쪽</a></p><p>Netflix와 Disney+ 수치는 2021년 1월부터 2022년 1월 사이 처음 결제한 미국 고객의 코호트별 6개월 평균 구독 유지율이다. Disney+는 월간 단독 요금제 기준이며 연간 구독과 번들, Premier Access로 처음 구매한 고객은 제외했다. <a href="https://secondmeasure.com/datapoints/streaming-services-customer-retention-ad-free-disney-plus-netfilx-hulu/" target="_blank" rel="noopener noreferrer">Bloomberg Second Measure (2022)</a></p></div>
 <div data-note="cohort-monthly-revenue" hidden><p>발표자가 만든 가상 데이터다. 색 띠 하나는 한 달에 유입된 코호트이고, 띠의 두께는 해당 시점에 활동한 그 코호트의 주간 사용자 수다. 왼쪽에서는 기존 코호트의 활동이 일정 수준 유지되며 전체 WAU가 계속 증가한다. 오른쪽에서는 기존 코호트의 활동이 줄어들면서 전체 WAU가 약 10만 명에서 평탄해진다. 두 차트의 세로축 눈금이 다르므로 띠의 두께는 각 차트 안에서 비교한다.</p></div>
 <div data-note="clv-methods" hidden><p>“누가 분모이고, 몇 달 동안 어떤 이익을 더할까요?” LTV와 CLV(Customer Lifetime Value)는 여기서 같은 뜻이다. 취득 시점의 신규 결제 고객 한 명을 기준으로 첫 결제를 포함한 현금흐름을 경과월 말에 인식한다. 거래 시점에 바로 인식하면 첫 항의 할인 시점도 조정한다. 마케팅·영업의 획득비용은 CAC와 따로 비교한다. 유한한 T개월의 값에는 T개월 이후의 공헌이익이 포함되지 않는다. <a href="https://www.brucehardie.com/notes/024/reconciling_clv_formulas.pdf" target="_blank" rel="noopener noreferrer">Fader·Hardie, CLV 산식과 현금흐름 시점</a></p>
 <p>실측 예시의 분모는 3개월 전에 처음 결제한 100명 전체다. 관측기간을 채운 동종 코호트의 결과를 새 코호트의 추정치로 쓸 때는 두 집단이 비교 가능해야 한다. RevenueCat의 원문은 코호트별 누적 매출 계산 예시다. 이 슬라이드는 같은 분모에 공헌이익을 적용한다. <a href="https://www.revenuecat.com/docs/dashboard-and-metrics/charts/cohort-explorer" target="_blank" rel="noopener noreferrer">RevenueCat, 최초 결제 코호트의 누적 가치 계산</a></p>
