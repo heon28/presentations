@@ -483,6 +483,66 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   .acquisition-table td, .acquisition-table th { padding: .48em .36em; }
 }
 
+#cac-budget { overflow: hidden; }
+.acquisition-attribution {
+  align-self: start; padding-block-start: clamp(.45em, 1.8dvh, 1.15em);
+  font-size: clamp(11px, 1.13rem, 29px); line-height: 1.26;
+  gap: clamp(.42em, 1.55dvh, .95em);
+}
+.acquisition-attribution .acquisition-formula { font-size: 1.16em; }
+.acquisition-attribution .acquisition-table { line-height: 1.2; }
+.acquisition-attribution .acquisition-table :is(th, td) { padding-block: .24em; }
+.acquisition-attribution .acquisition-table col:first-child { width: 40%; }
+.acquisition-attribution .acquisition-table tr.is-lowest-cpi > :last-child {
+  background: var(--blue-paper);
+}
+.attribution-timeline {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start; row-gap: .35em; line-height: 1.15;
+}
+.attribution-window {
+  grid-column: 2 / -1; text-align: center; margin-inline: .12em 12%;
+  border: 1px solid #9bb7dd; border-bottom: 0; border-radius: .3em .3em 0 0;
+  color: var(--blue); background: var(--blue-paper);
+  font-weight: 690; font-size: .84em; padding-block: .16em;
+}
+.attribution-events {
+  grid-column: 1 / -1; display: grid; grid-template-columns: subgrid;
+  position: relative; isolation: isolate; list-style: none; margin: 0; padding: 0;
+}
+.attribution-events::before {
+  content: ""; position: absolute; inset: .38em 12.5% auto;
+  border-block-start: 2px solid #bcc7d2; z-index: -1;
+}
+.attribution-events li {
+  --touch-ink: #54616d; --touch-paper: #eff2f5;
+  display: grid; justify-items: center; gap: .12em; text-align: center;
+  padding-inline: .2em;
+}
+.attribution-events li:nth-child(2) { --touch-ink: #653a90; --touch-paper: #f4edfa; }
+.attribution-events li[data-winning] { --touch-ink: var(--blue); --touch-paper: var(--blue-paper); }
+.attribution-events li:last-child { --touch-ink: #146347; --touch-paper: #e8f5ee; }
+.attribution-events li::before {
+  content: ""; inline-size: .78em; block-size: .78em; border-radius: 50%;
+  background: var(--touch-ink); border: 2px solid white;
+  box-shadow: 0 0 0 1px var(--touch-ink); margin-block-end: .1em;
+}
+.attribution-events li[data-winning]::before { box-shadow: 0 0 0 2px var(--touch-ink); }
+.attribution-events small { color: var(--muted); font-size: .76em; }
+.attribution-events strong { font-size: .94em; }
+.attribution-events span {
+  color: var(--touch-ink); background: var(--touch-paper); font-weight: 700;
+  border-radius: .24em; font-size: .78em; padding: .15em .4em;
+}
+.attribution-timeline figcaption { grid-column: 1 / -1; font-size: .91em; text-align: center; }
+@media (max-aspect-ratio: 1/1) {
+  .acquisition-attribution { font-size: clamp(11px, 3.3vw, 22px); }
+}
+@media (max-height: 520px) and (min-aspect-ratio: 1/1) {
+  .acquisition-attribution { gap: .38em; }
+  .acquisition-attribution .acquisition-table :is(th, td) { padding-block: .16em; }
+}
+
 /* 지역 인구 사례로 문제 정의를 고치고 원인 가설을 나눈다. */
 .problem-definition-slide { overflow: hidden; }
 .problem-comparison, .problem-hypotheses {
@@ -1910,20 +1970,46 @@ GROUP BY sale_date, store_id;</code></pre>
 
 <section id="cac-budget" class="slide" aria-labelledby="title-cac-budget" hidden>
   <header class="head"><h2 id="title-cac-budget">채널별 설치당 비용(CPI)</h2></header>
-  <div class="acquisition-example">
+  <div class="acquisition-example acquisition-attribution">
     <div>
       <p class="acquisition-formula">채널 CPI = 채널 광고비 ÷ 해당 채널에 귀속된 앱 설치 수</p>
-      <p>같은 기여 기준과 관측 기간으로 집계하고, 신규 설치의 중복을 제거한다.</p>
+      <p>매체 자체 집계와 Airbridge의 기여 집계는 같은 광고비에서도 CPI가 달라질 수 있다.</p>
     </div>
-    <table class="domain-table acquisition-table" aria-label="채널별 광고비와 설치당 비용 가상 사례">
-      <thead><tr><th scope="col">광고 채널</th><th scope="col">광고비</th><th scope="col">귀속 설치 수</th><th scope="col">CPI</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">Meta Ads</th><td>120만 원</td><td>100건</td><td>12,000원</td></tr>
-        <tr><th scope="row">Google Search Ads</th><td>90만 원</td><td>50건</td><td>18,000원</td></tr>
-        <tr><th scope="row">TikTok Ads</th><td>60만 원</td><td>25건</td><td>24,000원</td></tr>
-      </tbody>
-    </table>
-    <p class="acquisition-caption">가상 데이터 · <a href="https://support.google.com/google-ads/answer/12073727" target="_blank" rel="noopener noreferrer">Google Ads · 설치당 비용</a></p>
+    <div>
+      <h3 id="san-cpi-title">광고 매체 자체 집계(SAN)</h3>
+      <table class="domain-table acquisition-table" aria-labelledby="san-cpi-title">
+        <colgroup><col><col><col><col></colgroup>
+        <thead><tr><th scope="col">광고 채널</th><th scope="col">광고비</th><th scope="col">귀속 설치 수</th><th scope="col">CPI</th></tr></thead>
+        <tbody>
+          <tr class="is-lowest-cpi"><th scope="row">Meta Ads</th><td>120만 원</td><td>100건</td><td>12,000원</td></tr>
+          <tr><th scope="row">Google Search Ads</th><td>90만 원</td><td>50건</td><td>18,000원</td></tr>
+          <tr><th scope="row">TikTok Ads</th><td>60만 원</td><td>25건</td><td>24,000원</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figure class="attribution-timeline">
+      <div class="attribution-window">설치 전 7일 룩백 윈도우</div>
+      <ol class="attribution-events" aria-label="설치까지의 광고 터치포인트">
+        <li><small>D−9</small><strong>Meta Ads</strong><span>기간 밖 클릭</span></li>
+        <li><small>D−3</small><strong>TikTok Ads</strong><span>기간 내 클릭</span></li>
+        <li data-winning><small>D−1</small><strong>Google Search Ads</strong><span>마지막 유효 클릭</span></li>
+        <li><small>D0</small><strong>앱 설치</strong><span>전환 이벤트</span></li>
+      </ol>
+      <figcaption>기간 내 클릭의 우선순위가 같으면, Airbridge는 가장 최근 클릭인 <strong>Google Search Ads</strong>에 이 설치를 귀속한다.</figcaption>
+    </figure>
+    <div>
+      <h3 id="airbridge-cpi-title">Airbridge · 마지막 터치포인트 기여</h3>
+      <table class="domain-table acquisition-table" aria-labelledby="airbridge-cpi-title">
+        <colgroup><col><col><col><col></colgroup>
+        <thead><tr><th scope="col">광고 채널</th><th scope="col">광고비</th><th scope="col">귀속 설치 수</th><th scope="col">CPI</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Meta Ads</th><td>120만 원</td><td>75건</td><td>16,000원</td></tr>
+          <tr class="is-lowest-cpi"><th scope="row">Google Search Ads</th><td>90만 원</td><td>75건</td><td>12,000원</td></tr>
+          <tr><th scope="row">TikTok Ads</th><td>60만 원</td><td>25건</td><td>24,000원</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="acquisition-caption">가상 데이터 · <a href="https://help.airbridge.io/ko/guides/setting-attribution-window" target="_blank" rel="noopener noreferrer">Airbridge · 룩백 윈도우</a> · <a href="https://www.airbridge.io/tips/mobile-app-install-attribution-discrepancies" target="_blank" rel="noopener noreferrer">매체별 설치 수 차이</a></p>
   </div>
 </section>
 
@@ -2347,7 +2433,8 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
 </div>
 <div data-note="section-methods" hidden><p>어떤 질문에 어떤 분석 도구를 선택하는지 그래프로 비교한다.</p></div>
 <div data-note="cac-budget" hidden>
-  <p>각 채널의 광고비를 해당 채널에 귀속된 신규 설치 수로 나눈 가상 사례다. 집계 기간, 신규 설치 이벤트, 기여 기간과 모델을 맞춘다. 재설치 또는 중복 이벤트의 처리 기준도 정한다. <a href="https://support.google.com/google-ads/answer/12073727" target="_blank" rel="noopener noreferrer">Google Ads · 앱 캠페인 입찰과 설치당 비용</a></p>
+  <p>위 표는 각 매체에서 보고한 설치 수다. 아래 표는 Airbridge로 여러 채널의 터치포인트를 비교해 설치별로 가장 기여도가 높은 터치포인트 하나를 골랐을 때의 집계 예시다. 이 가상 사례에서는 채널 귀속이 바뀌어 최저 CPI 채널이 Meta Ads에서 Google Search Ads로 바뀐다.</p>
+  <p>도식은 클릭의 룩백 윈도우를 7일로 설정하고 기간 안에 있는 클릭에 같은 우선순위를 적용한 예다. 실제 비교에서는 집계 기간, 신규 설치 이벤트, 기여 기간과 모델을 확인한다. 매체 간 중복 귀속과 재설치 처리에 따라 설치 합계도 달라질 수 있다. <a href="https://support.google.com/google-ads/answer/12073727" target="_blank" rel="noopener noreferrer">Google Ads · 앱 캠페인 입찰과 설치당 비용</a></p>
 </div>
 <div data-note="cac-optimization" hidden>
   <p>소재는 같은 형식으로 메시지만 바꾸고, 타겟팅은 해당 옵션을 지원하는 매체에서 비교한다. 한 번에 한 요소를 바꾸거나 매체의 A/B 테스트로 그룹을 분리한다. 목표 이벤트와 기여 기준을 맞추고 충분한 전환이 쌓인 후 비교한다.</p>
