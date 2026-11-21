@@ -543,6 +543,32 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   .hypothesis-branches > li { padding-inline: .65em; }
 }
 
+/* 원인 후보를 좁히고 해결 방안의 효과를 검증하는 흐름 */
+.cause-workflow { gap: clamp(.75rem, 3.35dvh, 2.6rem); }
+.cause-why { border-left: .19em solid var(--blue); padding-left: .7em; }
+.cause-why strong { color: var(--blue); }
+.cause-why p { margin-top: .21em; font-weight: 680; }
+.cause-checks, .cause-test {
+  display: grid; gap: 1.7em; margin: 0; padding: 0;
+  list-style: none;
+}
+.cause-checks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cause-test { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cause-checks li, .cause-test li { min-width: 0; position: relative; padding: .74em .82em; }
+.cause-checks li { background: var(--paper); }
+.cause-test li { background: var(--blue-paper); }
+.cause-checks li + li::before, .cause-test li + li::before {
+  content: "→"; position: absolute; right: 100%; top: 50%; width: 1.7em;
+  transform: translateY(-50%); color: var(--blue); text-align: center; font-weight: 740;
+}
+.cause-workflow h3 { margin-bottom: .26em; color: var(--blue); font-size: 1.08em; }
+@media (max-aspect-ratio: 1/1) {
+  .cause-workflow { gap: .9em; }
+  .cause-checks, .cause-test { grid-template-columns: 1fr; gap: .44em; }
+  .cause-checks li, .cause-test li { padding: .45em .65em; }
+  .cause-checks li + li::before, .cause-test li + li::before { content: none; }
+}
+
 /* 분석 과정, 방법론, 고객 사례 */
 .lesson-body {
   min-width:0; min-height:0; display:grid; align-content:center;
@@ -1702,6 +1728,24 @@ GROUP BY sale_date, store_id;</code></pre>
     <figcaption class="hypothesis-scope">출생은 0세 인구에 반영된다. 20~34세 분석에서는 20세 진입과 35세 이탈도 확인한다.</figcaption>
   </figure>
 </section>
+<section id="cause-validation" class="slide problem-definition-slide" aria-labelledby="title-cause-validation" hidden>
+  <header class="head"><h2 id="title-cause-validation">원인 후보를 확인하고 해결 방안을 검증한다</h2></header>
+  <div class="problem-hypotheses cause-workflow">
+    <div class="cause-why">
+      <strong>로직 트리에서 다시 Why?</strong>
+      <p>취업 때문에 A군을 떠난 청년이 늘었다면, 왜 지역 일자리를 선택하기 어려웠을까?</p>
+    </div>
+    <ol class="cause-checks" aria-label="원인 후보부터 관련성 확인까지">
+      <li><h3>원인 후보</h3><p>지역 채용 정보를 찾기 어렵다.</p></li>
+      <li><h3>지표 선택</h3><p>지역 채용 정보 접근 난이도와 취업 목적 전출률을 본다.</p></li>
+      <li><h3>데이터로 관련성 확인</h3><p>정보를 찾기 어려웠던 집단과 쉬웠던 집단의 전출률을 비교한다.</p></li>
+    </ol>
+    <ol class="cause-test" aria-label="해결 방안을 제시하고 실험으로 검증">
+      <li><h3>해결 방안 제시</h3><p>정보를 얻기 어려운 것이 원인이라면 A군 기업 채용 알림을 제공한다.</p></li>
+      <li><h3>A/B 테스트</h3><p>참가자를 알림군과 대조군으로 무작위 배정하고, 지역 기업 지원율과 이후 전출률을 비교한다.</p></li>
+    </ol>
+  </div>
+</section>
 <section id="section-methods" class="slide section-divider" aria-labelledby="title-section-methods" hidden>
   <header class="head"><h1 id="title-section-methods">4. 데이터 분석 방법론</h1></header>
 
@@ -2242,6 +2286,10 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
 <div data-note="logic-tree" hidden>
   <p>자연증감은 출생에서 사망을, 사회증감은 전입에서 전출을 뺀 전체 인구의 증감 요인이다. 표시된 네 질문으로 어떤 항목이 과거보다 달라졌는지 확인한다. 전출 사유는 이동 기록과 설문·인터뷰를 함께 검토한다.</p>
   <p>같은 연령 범위인 20~34세를 전년과 비교하면 포함된 출생연도 집단이 달라진다. 해당 연령대의 사망과 전입·전출, 19세에서 20세가 된 사람과 34세에서 35세가 된 사람을 함께 확인한다. 당해 출생은 0세 인구에 반영된다. <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationprojections/methodologies/methodologyusedtoproducethenationalpopulationprojections" target="_blank" rel="noopener noreferrer">영국 통계청의 코호트 요인법</a></p>
+</div>
+<div data-note="cause-validation" hidden>
+  <p>A군 가상 사례의 전출 가지를 한 번 더 파고든다. 구직을 시작할 때 채용 정보 접근 난이도를 조사하고 이후 같은 기간의 취업 목적 전출을 관찰할 수 있다. 직종, 연령, 지역의 실제 채용 규모 등 두 집단의 차이도 점검한다. 관련성은 원인 후보를 좁히는 근거로 쓴다.</p>
+  <p>채용 알림 실험에 참여한 구직자를 기존 방식과 알림 제공으로 무작위 배정한다. 지원율과 전출률의 관측 기간을 정하고 두 집단에 같은 기준을 적용한다. 지원율은 먼저 볼 지표이고, 전출률은 더 긴 기간에 확인할 결과다.</p>
 </div>
 <div data-note="section-methods" hidden><p>어떤 질문에 어떤 분석 도구를 선택하는지 그래프로 비교한다.</p></div>
 <div data-note="cac-budget" hidden>
