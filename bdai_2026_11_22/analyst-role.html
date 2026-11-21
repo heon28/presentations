@@ -708,7 +708,10 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   min-width: 0; min-height: 0; display: grid; align-content: center;
   gap: clamp(.8rem, 1.55vw, 1.7rem);
 }
-.duo-onboarding { grid-template-columns: minmax(0, 1.48fr) minmax(0, 1fr); }
+.duo-onboarding {
+  grid-template-columns: minmax(0, 1.48fr) minmax(0, 1fr);
+  align-content: start; padding-block-start: clamp(10px, 1.15rem, 26px);
+}
 .duo-onboarding h3, .duo-growth h3 {
   margin: 0; font-size: clamp(1.4rem, 1.85vw, 1.9rem); letter-spacing: -.05em; font-weight: 740;
 }
