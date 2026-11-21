@@ -470,6 +470,10 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .acquisition-table td:last-child { color: var(--blue); font-weight: 740; }
 .acquisition-example h3 { margin: 0 0 .22em; font-size: 1.16em; }
 .acquisition-example p + p { margin-top: .22em; }
+#cac-optimization .acquisition-example {
+  align-self: stretch; align-content: space-between;
+  padding-block-start: clamp(.55em, 1.8dvh, 1em);
+}
 .acquisition-topics { margin: 0; padding-inline-start: 1.35em; }
 .acquisition-topics > li + li { margin-top: clamp(.6em, 3.35dvh, 1.55em); }
 .acquisition-topics > li::marker, .acquisition-topics p strong { color: var(--blue); }
