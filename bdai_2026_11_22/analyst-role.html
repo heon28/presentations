@@ -420,6 +420,21 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   .process-sequence :is(th, td) { padding-block: .28em; }
 }
 
+/* 문제 상황 예시에서 서로 다른 역할을 하는 표현에 색과 밑줄을 붙인다. */
+#analysis-examples-annotated { overflow: hidden; }
+.process-example-list li[data-role] { padding-block-end: 0; }
+.process-example-list li[data-role="cause"] { --annotation-color: var(--blue); }
+.process-example-list li[data-role="observation"] { --annotation-color: #176248; }
+.process-example-list li[data-role="solution"] { --annotation-color: #884607; }
+.process-example-list li[data-role="purpose"] { --annotation-color: #6b4599; }
+.process-example-list li[data-role="ambiguity"] { --annotation-color: #9c334c; }
+.process-mark {
+  color: var(--annotation-color); text-decoration: underline;
+  text-underline-offset: .18em; text-decoration-thickness: .085em;
+}
+.process-annotation { display: block; margin-top: .25em; color: var(--muted); font-size: .82em; }
+.process-annotation b { display: inline-block; margin-right: .45em; color: var(--annotation-color); }
+
 /* 결론과 근거 사이를 양방향으로 읽는 로직 트리 */
 .analysis-example, .acquisition-example {
   align-self: center; display: grid; min-width: 0;
@@ -1535,6 +1550,42 @@ GROUP BY sale_date, store_id;</code></pre>
     </div>
   </div>
 </section>
+<section id="analysis-examples-annotated" class="slide" aria-labelledby="title-analysis-examples-annotated" hidden>
+  <header class="head"><h2 id="title-analysis-examples-annotated">데이터 분석의 흐름과 문제 상황 예시</h2></header>
+  <div class="process-examples">
+    <table class="domain-table process-sequence" aria-label="A부터 G까지의 데이터 분석 흐름">
+      <thead><tr><th scope="col">순서 ↓</th><th scope="col">구분</th><th scope="col">분석 단계</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">A</th><th scope="rowgroup" rowspan="1">현상</th><td>겉으로 드러난 현상</td></tr>
+      </tbody>
+      <tbody>
+        <tr><th scope="row">B</th><th scope="rowgroup" rowspan="2">목적·문제 정의</th><td>목적과 문제 정의</td></tr>
+        <tr><th scope="row">C</th><td>지표 결정</td></tr>
+      </tbody>
+      <tbody>
+        <tr><th scope="row">D</th><th scope="rowgroup" rowspan="2">현상 파악·평가</th><td>현재 상태 파악</td></tr>
+        <tr><th scope="row">E</th><td>평가</td></tr>
+      </tbody>
+      <tbody>
+        <tr><th scope="row">F</th><th scope="rowgroup" rowspan="1">요인</th><td>요인 분석</td></tr>
+      </tbody>
+      <tbody>
+        <tr><th scope="row">G</th><th scope="rowgroup" rowspan="1">방법</th><td>해결 방안 모색</td></tr>
+      </tbody>
+    </table>
+    <div>
+      <h3>문제 상황 예시</h3>
+      <ul class="process-example-list">
+        <li data-role="cause"><strong><span class="process-mark">사무직 위주 회사라는 이미지 때문에</span> 제조업 인재를 확보하기 어렵다.</strong><span class="process-annotation"><b>원인 가설</b>회사 이미지가 제조업 인재 확보에 영향을 주는지 확인한다.</span></li>
+        <li data-role="cause"><strong><span class="process-mark">우수한 파견 인력이 직접 채용되면서</span> 인재 풀이 줄고 있다.</strong><span class="process-annotation"><b>원인 가설</b>직접 채용이 파견 인재 풀 감소에 영향을 주는지 확인한다.</span></li>
+        <li data-role="observation"><strong>인재 부족으로 <span class="process-mark">효율적이고 효과적인 영업 활동을 못 하고 있다</span>.</strong><span class="process-annotation"><b>관측 현상</b>영업 활동에서 어떤 결과가 기대에 못 미치는지 확인한다.</span></li>
+        <li data-role="solution"><strong><span class="process-mark">작업 효율화를 통해</span> 구조 조정을 하고자 한다.</strong><span class="process-annotation"><b>해결 방안 후보</b>작업 효율화로 개선하고 싶은 상태를 먼저 정한다.</span></li>
+        <li data-role="purpose"><strong><span class="process-mark">유연한 근무 환경을 도입</span>하는 데 필요한 내용을 제안하고 싶다.</strong><span class="process-annotation"><b>목적</b>유연근무를 도입해 어떤 변화를 만들고 싶은지 묻는다.</span></li>
+        <li data-role="ambiguity"><strong>우리 지역의 인구 유출 완화 방안이 <span class="process-mark">효과적이지 않다</span></strong><span class="process-annotation"><b>모호함</b>판단에 사용한 인구 유출 지표와 비교 기간을 묻는다.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
 <section id="logic-tree" class="slide" aria-labelledby="title-logic-tree" hidden>
   <header class="head"><h2 id="title-logic-tree">로직 트리 · 도요타의 생산라인 중단</h2></header>
   <figure class="analysis-example">
@@ -2083,6 +2134,10 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
 <div data-note="analysis-process" hidden><p>제공한 책 사진의 「데이터 활용 프로세스」를 따라 현상에서 해결 방안까지 이어지는 A~G 순서를 재구성했다. B와 C, D와 E가 각각 하나의 묶음이다.</p></div>
 <div data-note="analysis-examples" hidden>
   <p>오른쪽 문장은 분석을 시작할 때 접하는 요청과 진술의 예시다. ‘이미지 때문에’처럼 원인이 이미 제시된 문장에서는 관찰한 현상과 확인할 가설을 짚어 본다. 구조 조정이나 유연근무처럼 해법이 먼저 나온 문장에서는 그 해법으로 개선하고 싶은 상태부터 묻는다.</p>
+</div>
+<div data-note="analysis-examples-annotated" hidden>
+  <p>밑줄은 각 문장에서 우선 살펴볼 구절을 가리킨다. 같은 문장 안에도 여러 성격의 표현이 섞일 수 있다. 세 번째 문장의 ‘인재 부족으로’ 역시 원인 가설이며, 장표에서는 뒷부분의 보고된 현상에 초점을 맞췄다.</p>
+  <p>유연근무 도입은 요청에 드러난 목적이다. 도입을 통해 채용, 이직, 업무 방식 중 무엇을 개선하려는지 물으면 분석 목적을 한 단계 더 구체화할 수 있다.</p>
 </div>
 <div data-note="analysis-problem" hidden></div>
 <div data-note="section-methods" hidden><p>어떤 질문에 어떤 분석 도구를 선택하는지 그래프로 비교한다.</p></div>
