@@ -354,28 +354,31 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 /* 분석 흐름의 세로 표와 문제 상황 예시 */
 #analysis-examples { overflow: hidden; }
 .process-examples {
-  align-self: center; display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.35fr);
-  align-items: start; gap: clamp(1rem, 3.3vw, 4rem); padding-inline: 1rem;
+  display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.35fr);
+  grid-template-rows: minmax(0, 1fr); align-items: start;
+  gap: clamp(1rem, 3.3vw, 4rem); padding-inline: 1rem;
+  padding-block: clamp(.8rem, 4dvh, 2.8rem) clamp(.85rem, 5dvh, 3.2rem);
   font-size: clamp(13px, 1.26rem, 32px); line-height: 1.42;
 }
 .process-sequence {
-  width: 100%; margin: 0; font-size: .96em; table-layout: auto;
+  width: 100%; height: 100%; margin: 0; font-size: .96em; table-layout: auto;
 }
 .process-sequence :is(th, td) { padding: .5em .55em; }
 .process-sequence th:first-child { white-space: nowrap; }
 .process-sequence tbody th[scope="row"] { color: var(--blue); text-align: center; }
 .process-sequence tbody th[scope="rowgroup"] { vertical-align: middle; }
 .process-example-list { margin: 0; padding: 0 0 0 1.25em; }
-.process-example-list li + li { margin-top: .62em; }
+.process-example-list li { padding-block-end: 1lh; }
 .process-example-list li::marker { color: var(--blue); }
 .process-examples h3 { margin: 0 0 .55em; color: var(--blue); font-size: 1.08em; }
 @media (max-aspect-ratio: 1/1) {
   .process-examples {
-    grid-template-columns: 1fr; gap: 1.15em; padding-inline: .4rem;
+    grid-template-columns: 1fr; grid-template-rows: auto auto; align-content: start;
+    gap: 1.15em; padding: 1.4dvh .4rem 0;
     font-size: clamp(12px, min(3.2vw, 2.4dvh), 20px);
   }
+  .process-sequence { height: auto; }
   .process-sequence :is(th, td) { padding-block: .28em; }
-  .process-example-list li + li { margin-top: .42em; }
 }
 
 /* 결론과 근거 사이를 양방향으로 읽는 로직 트리 */
