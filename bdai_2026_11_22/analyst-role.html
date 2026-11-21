@@ -526,16 +526,21 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   top: 1em; left: 25%; right: 25%; height: 1em;
   border: 2px solid var(--line); border-bottom: 0;
 }
-.hypothesis-branches li { min-width: 0; background: var(--paper); padding: .8em .95em; }
-.hypothesis-branches h3 { font-size: 1.1em; margin: 0 0 .5em; }
-.hypothesis-branches h3 span { color: var(--blue); display: block; font-size: .76em; margin-bottom: .2em; }
-.hypothesis-branches p { border-top: 1px solid var(--line); padding-top: .55em; }
+.hypothesis-branches > li { min-width: 0; background: var(--paper); padding: .8em .95em; }
+.hypothesis-branches h3 { font-size: 1.1em; }
+.hypothesis-branches h3 span { color: var(--blue); }
+.hypothesis-questions {
+  display: grid; gap: .5em; list-style: none; margin: .55em 0 0;
+  padding: .55em 0 0; border-top: 1px solid var(--line);
+}
+.hypothesis-questions span { display: block; margin-top: .1em; font-size: .88em; }
+.hypothesis-scope { margin-top: .85em; color: var(--muted); font-size: .76em; }
 @media (max-aspect-ratio: 1/1) {
   .problem-comparison, .problem-hypotheses { font-size: clamp(13px, 3.55vw, 23px); }
   .problem-comparison blockquote { font-size: clamp(18px, 5.3vw, 42px); }
   .problem-before .process-label { font-size: max(10px, .49em); }
   .hypothesis-branches { gap: .75em; }
-  .hypothesis-branches li { padding-inline: .65em; }
+  .hypothesis-branches > li { padding-inline: .65em; }
 }
 
 /* 분석 과정, 방법론, 고객 사례 */
@@ -1659,15 +1664,15 @@ GROUP BY sale_date, store_id;</code></pre>
       <h3>Before</h3>
       <blockquote class="problem-before">
         <span class="process-labeled-phrase" data-role="ambiguity"><span class="process-mark">우리 지역의</span><span class="process-label">지역·대상·기간이 모호함</span></span>
-        <span class="process-labeled-phrase" data-role="ambiguity"><span class="process-mark">인구 유출</span><span class="process-label">측정 지표가 모호함</span></span>
+        <span class="process-labeled-phrase" data-role="ambiguity"><span class="process-mark">인구 감소</span><span class="process-label">측정 지표가 모호함</span></span>
         <span class="process-labeled-phrase" data-role="solution"><span class="process-mark">완화 방안이</span><span class="process-label">문제와 해결 방안이 섞임</span></span>
         <span class="process-labeled-phrase" data-role="ambiguity"><span class="process-mark">효과적이지 않다</span><span class="problem-punctuation">.</span><span class="process-label">비교 기준이 없음</span></span>
       </blockquote>
     </div>
     <div class="problem-after">
       <h3>After</h3>
-      <blockquote>2025년 A군 20~34세의 순유출은 <strong>300명</strong>으로,<br>목표 상한인 <strong>200명</strong>을 <strong>100명</strong> 초과했다.</blockquote>
-      <p>가상 사례 · 순유출 = 전출자 수 − 전입자 수</p>
+      <blockquote>2025년 A군 20~34세 인구수는 <strong>300명</strong>으로,<br>전년도 <strong>400명</strong> 대비 <strong>100명 감소</strong>했다.</blockquote>
+      <p>가상 사례</p>
     </div>
   </div>
 </section>
@@ -1676,18 +1681,25 @@ GROUP BY sale_date, store_id;</code></pre>
   <figure class="problem-hypotheses">
     <div class="hypothesis-root">
       <span>문제 · 가상 사례</span>
-      <strong>2025년 A군 20~34세의 순유출이 목표 상한을 100명 초과했다.</strong>
+      <strong>2025년 A군 20~34세 인구가 전년보다 100명 감소했다.</strong>
     </div>
-    <ul class="hypothesis-branches" aria-label="전출과 전입을 나누어 확인하는 원인 가설">
+    <ul class="hypothesis-branches" aria-label="전체 인구 증감을 자연증감과 사회증감으로 나눈 원인 가설">
       <li>
-        <h3><span>전출 쪽</span>전출이 과거보다 늘었는가?</h3>
-        <p>어느 연령대가, 어느 지역으로, 어떤 이유로 떠났는가?</p>
+        <h3>자연증감 <span>＝ 출생 − 사망</span></h3>
+        <ul class="hypothesis-questions">
+          <li><strong>출생이 줄었나?</strong></li>
+          <li><strong>사망이 늘었나?</strong></li>
+        </ul>
       </li>
       <li>
-        <h3><span>전입 쪽</span>전입이 과거보다 줄었는가?</h3>
-        <p>어느 연령대에서, 어느 지역 출신의 전입이 줄었는가?</p>
+        <h3>사회증감 <span>＝ 전입 − 전출</span></h3>
+        <ul class="hypothesis-questions">
+          <li><strong>전입이 줄었나?</strong><span>어느 연령대에서, 어느 지역 출신의 전입이 줄었는가?</span></li>
+          <li><strong>전출이 늘었나?</strong><span>어느 연령대가, 어느 지역으로, 어떤 이유로 떠났는가?</span></li>
+        </ul>
       </li>
     </ul>
+    <figcaption class="hypothesis-scope">출생은 0세 인구에 반영된다. 20~34세 분석에서는 20세 진입과 35세 이탈도 확인한다.</figcaption>
   </figure>
 </section>
 <section id="section-methods" class="slide section-divider" aria-labelledby="title-section-methods" hidden>
@@ -2225,12 +2237,11 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
   <p>구조 조정은 네 번째 문장에 나타난 목적이며, 작업 효율화는 그 목적을 달성하기 위한 해결 방안 후보다. 이 목적이 더 상위의 어떤 문제를 해결하는지도 질문할 수 있다.</p>
 </div>
 <div data-note="analysis-problem" hidden>
-  <p>『데이터 문해력』의 인구 유출 예시를 바탕으로 재구성했다. Before에서 지역·대상·기간, 지표, 해결 방안, 비교 기준을 각각 확인한다. 청년 정착을 목적으로 A군의 20~34세와 2025년을 선택했고, 지표는 전출자 수에서 전입자 수를 뺀 순유출이다.</p>
-  <p>가상 사례에서 전출 800명과 전입 500명의 차이는 300명이다. 목표 상한 200명과 실제 300명의 차이는 100명이다. <a href="https://data-story.net/post/toranomaki-98/" target="_blank" rel="noopener noreferrer">카시와기 요시키의 인구 감소 사례 해설</a></p>
+  <p>『데이터 문해력』의 인구 감소 예시를 바탕으로 재구성했다. Before에서 지역·대상·기간, 측정 지표, 해결 방안, 비교 기준을 확인한다. After는 A군 20~34세 인구수라는 지표를 동일 기준일의 2024년 400명과 2025년 300명으로 비교한 가상 사례다. <a href="https://data-story.net/post/toranomaki-98/" target="_blank" rel="noopener noreferrer">카시와기 요시키의 인구 감소 사례 해설</a></p>
 </div>
 <div data-note="logic-tree" hidden>
-  <p>같은 지역과 연령 조건으로 과거와 현재의 전출·전입 규모를 비교한다. 예를 들어 2024년과 2025년 각각의 20~34세 수를 확인한 뒤 20~24세, 25~29세, 30~34세와 출발지·도착지로 좁혀 갈 수 있다.</p>
-  <p>이 트리는 변화가 전출과 전입 중 어디서 나타났는지 확인하는 데 쓰인다. 떠난 이유는 전출 기록에 나타난 이동 경로와 함께 설문·인터뷰 등으로 검증한다. 과거보다 얼마나 달라졌는지와 목표 상한을 얼마나 초과했는지를 각각 본다.</p>
+  <p>자연증감은 출생에서 사망을, 사회증감은 전입에서 전출을 뺀 전체 인구의 증감 요인이다. 표시된 네 질문으로 어떤 항목이 과거보다 달라졌는지 확인한다. 전출 사유는 이동 기록과 설문·인터뷰를 함께 검토한다.</p>
+  <p>같은 연령 범위인 20~34세를 전년과 비교하면 포함된 출생연도 집단이 달라진다. 해당 연령대의 사망과 전입·전출, 19세에서 20세가 된 사람과 34세에서 35세가 된 사람을 함께 확인한다. 당해 출생은 0세 인구에 반영된다. <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationprojections/methodologies/methodologyusedtoproducethenationalpopulationprojections" target="_blank" rel="noopener noreferrer">영국 통계청의 코호트 요인법</a></p>
 </div>
 <div data-note="section-methods" hidden><p>어떤 질문에 어떤 분석 도구를 선택하는지 그래프로 비교한다.</p></div>
 <div data-note="cac-budget" hidden>
