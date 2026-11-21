@@ -470,7 +470,7 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .acquisition-table td:last-child { color: var(--blue); font-weight: 740; }
 .acquisition-example h3 { margin: 0 0 .22em; font-size: 1.16em; }
 .acquisition-example p + p { margin-top: .22em; }
-.acquisition-decision, .acquisition-signal { background: var(--blue-paper); padding: .76em 1.05em; }
+.acquisition-signal { background: var(--blue-paper); padding: .76em 1.05em; }
 .acquisition-tests { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
 .acquisition-tests > div { border-top: 2px solid var(--line); padding-top: .65em; }
 .acquisition-tests strong { color: var(--blue); }
@@ -760,6 +760,7 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .econ-columns { display: grid; grid-template-columns: minmax(0,.86fr) minmax(0,1.25fr); column-gap: 3.1rem; align-items: stretch; }
 .econ-panel { min-width: 0; display: grid; grid-template-rows: auto auto minmax(0,1fr) auto; align-items: start; }
 .econ-panel > .econ-caption { margin-top: .28rem; }
+@media (max-height: 520px) { #cac-ltv .econ-body { row-gap: .9rem; } }
 .econ-funnel-shape { width: 100%; height: auto; display: block; align-self: center; margin: .8rem 0; font-family: inherit; }
 .econ-money-chart { align-self: center; width: 100%; }
 .econ-amount { padding: 1.05rem 0 .1rem; border-top: .12rem solid #bac6d4; }
@@ -1883,53 +1884,49 @@ GROUP BY sale_date, store_id;</code></pre>
 </div>
 </section>
 <section id="cac-ltv" class="slide" aria-labelledby="title-cac-ltv" hidden>
-  <header class="head"><h2 id="title-cac-ltv">획득 퍼널에서 CAC와 LTV를 어떻게 비교할까?</h2></header>
+  <header class="head"><h2 id="title-cac-ltv">획득 퍼널에서 CPI와 LTV를 어떻게 비교할까?</h2></header>
 <div class="econ-body">
   <div class="econ-columns">
-    <div class="econ-panel"><h3>고객획득비용(CAC)</h3><p class="econ-caption">Customer Acquisition Cost · 동일 캠페인의 획득 퍼널</p>
+    <div class="econ-panel"><h3>설치당 비용(CPI)</h3><p class="econ-caption">Cost per install · 동일 캠페인의 획득 퍼널</p>
       <svg class="econ-funnel-shape" viewBox="0 0 470 270" role="img" aria-labelledby="econ-funnel-desc">
-        <title id="econ-funnel-desc">캠페인 방문 1,000명 중 가입 250명, 첫 결제 100명으로 좁아지는 획득 퍼널</title>
+        <title id="econ-funnel-desc">캠페인 방문 1,000명 중 앱 설치 250명, 첫 결제 100명으로 좁아지는 획득 퍼널</title>
         <path d="M10 18 H460 L418 85 H52 Z" fill="#e1ebf5"/>
         <path d="M55 90 H415 L373 157 H97 Z" fill="#a9c4e2"/>
         <path d="M100 162 H370 L328 229 H142 Z" fill="#184d99"/>
         <g text-anchor="middle" dominant-baseline="central" font-size="25" font-weight="720">
           <text x="235" y="49" fill="#243745">방문 1,000명</text>
-          <text x="235" y="121" fill="#153859">가입 250명</text>
+          <text x="235" y="121" fill="#153859">설치 250명</text>
           <text x="235" y="193" fill="white">첫 결제 100명</text>
         </g>
-        <text x="235" y="257" text-anchor="middle" fill="#4d5b68" font-size="17" font-weight="560">첫 결제 고객 100명이 두 지표의 공통 분모</text>
+        <text x="235" y="257" text-anchor="middle" fill="#4d5b68" font-size="17" font-weight="560">설치자 250명이 두 지표의 공통 분모</text>
       </svg>
-      <div class="econ-amount"><p class="econ-val">20,000원</p><p class="econ-caption">획득비용 200만 원 ÷ 신규 결제 고객 100명</p></div>
+      <div class="econ-amount"><p class="econ-val">8,000원</p><p class="econ-caption">광고비 200만 원 ÷ 귀속 설치자 250명</p></div>
     </div>
-    <div class="econ-panel"><h3>3개월 고객생애가치(LTV)</h3><p class="econ-caption">Lifetime Value · 같은 결제 고객 1명당 누적 공헌이익(원)</p>
-      <svg class="econ-chart econ-money-chart" viewBox="0 0 612 280" role="img" aria-label="고객 1명당 누적 공헌이익은 첫 달 말 10,000원, 둘째 달 말 18,000원, 셋째 달 말 24,400원. CAC 20,000원을 3개월 차에 회수한다."><line x1="51" y1="227.0" x2="586" y2="227.0" class="econ-axis"/><text x="39" y="232.0" font-size="16" text-anchor="end" class="">0</text><line x1="51" y1="162.0" x2="586" y2="162.0" class="econ-gridline"/><text x="39" y="167.0" font-size="16" text-anchor="end" class="">1만</text><line x1="51" y1="97.0" x2="586" y2="97.0" class="econ-gridline"/><text x="39" y="102.0" font-size="16" text-anchor="end" class="">2만</text><line x1="51" y1="32.0" x2="586" y2="32.0" class="econ-gridline"/><text x="39" y="37.0" font-size="16" text-anchor="end" class="">3만</text><text x="51" y="255" font-size="18" text-anchor="middle" class="">획득</text><text x="205" y="255" font-size="18" text-anchor="middle" class="">1개월</text><text x="359" y="255" font-size="18" text-anchor="middle" class="">2개월</text><text x="513" y="255" font-size="18" text-anchor="middle" class="">3개월</text><line x1="51" y1="97.0" x2="586" y2="97.0" class="econ-guide"/><text x="57" y="88.0" font-size="18" text-anchor="start" class="econ-graytext">CAC 20,000원</text><path d="M51 227.0 H205 V162.00 H359 V110.00 H513 V68.40" fill="none" stroke="#184d99" stroke-width="4.4" stroke-linejoin="round"/><circle cx="51.0" cy="227.0" r="4.5" fill="#184d99" stroke="white" stroke-width="1.5"/><circle cx="205.0" cy="162.0" r="4.5" fill="#184d99" stroke="white" stroke-width="1.5"/><circle cx="359.0" cy="110.0" r="4.5" fill="#184d99" stroke="white" stroke-width="1.5"/><circle cx="513.0" cy="68.4" r="4.5" fill="#184d99" stroke="white" stroke-width="1.5"/><text x="517" y="57.400000000000006" font-size="20" text-anchor="middle" class="econ-direct">24,400원</text></svg>
-      <div class="econ-amount"><p class="econ-val">24,400원</p><p class="econ-caption">월별 공헌이익 10,000원 + 8,000원 + 6,400원</p></div>
+    <div class="econ-panel"><h3>설치자당 3개월 LTV</h3><p class="econ-caption">Lifetime Value · 비구매자를 포함한 설치자 1명당 누적 공헌이익</p>
+      <svg class="econ-chart econ-money-chart" viewBox="0 0 612 280" role="img" aria-label="설치자 1명당 누적 공헌이익은 첫 달 말 4,000원, 둘째 달 말 7,200원, 셋째 달 말 9,760원. CPI 8,000원을 3개월 차에 회수한다."><line x1="51" y1="227.0" x2="586" y2="227.0" class="econ-axis"/><text x="39" y="232.0" font-size="16" text-anchor="end" class="">0</text><line x1="51" y1="162.0" x2="586" y2="162.0" class="econ-gridline"/><text x="39" y="167.0" font-size="16" text-anchor="end" class="">4천</text><line x1="51" y1="97.0" x2="586" y2="97.0" class="econ-gridline"/><text x="39" y="102.0" font-size="16" text-anchor="end" class="">8천</text><line x1="51" y1="32.0" x2="586" y2="32.0" class="econ-gridline"/><text x="39" y="37.0" font-size="16" text-anchor="end" class="">1.2만</text><text x="51" y="255" font-size="18" text-anchor="middle" class="">설치</text><text x="205" y="255" font-size="18" text-anchor="middle" class="">1개월</text><text x="359" y="255" font-size="18" text-anchor="middle" class="">2개월</text><text x="513" y="255" font-size="18" text-anchor="middle" class="">3개월</text><line x1="51" y1="97.0" x2="586" y2="97.0" class="econ-guide"/><text x="57" y="88.0" font-size="18" text-anchor="start" class="econ-graytext">CPI 8,000원</text><path d="M51 227.0 H205 V162.00 H359 V110.00 H513 V68.40" fill="none" stroke="#184d99" stroke-width="4.4" stroke-linejoin="round"/><circle cx="51.0" cy="227.0" r="4.5" fill="#184d99" stroke="white" stroke-width="1.5"/><circle cx="205.0" cy="162.0" r="4.5" fill="#184d99" stroke="white" stroke-width="1.5"/><circle cx="359.0" cy="110.0" r="4.5" fill="#184d99" stroke="white" stroke-width="1.5"/><circle cx="513.0" cy="68.4" r="4.5" fill="#184d99" stroke="white" stroke-width="1.5"/><text x="517" y="57.400000000000006" font-size="20" text-anchor="middle" class="econ-direct">9,760원</text></svg>
+      <div class="econ-amount"><p class="econ-val">9,760원</p><p class="econ-caption">월별 공헌이익 4,000원 + 3,200원 + 2,560원</p></div>
     </div>
   </div>
-  <div class="econ-bottom"><span>3개월 LTV ÷ CAC = 1.22배</span><span>획득비용 회수 시점 · 3개월 차</span></div>
+  <div class="econ-bottom"><span>설치자당 3개월 LTV ÷ CPI = 1.22배</span><span>광고비 회수 시점 · 3개월 차</span></div>
 </div>
 </section>
 
 <section id="cac-budget" class="slide" aria-labelledby="title-cac-budget" hidden>
-  <header class="head"><h2 id="title-cac-budget">CAC 줄이기 · 채널별로 예산 재배분</h2></header>
+  <header class="head"><h2 id="title-cac-budget">채널별 설치당 비용(CPI)</h2></header>
   <div class="acquisition-example">
     <div>
-      <p class="acquisition-formula">채널 CAC = 채널 광고비 ÷ 첫 구매 고객 수</p>
-      <p>같은 기여 기준과 관측 기간으로 집계하고, 첫 구매는 고객 ID로 중복을 제거한다.</p>
+      <p class="acquisition-formula">채널 CPI = 채널 광고비 ÷ 해당 채널에 귀속된 앱 설치 수</p>
+      <p>같은 기여 기준과 관측 기간으로 집계하고, 신규 설치의 중복을 제거한다.</p>
     </div>
-    <table class="domain-table acquisition-table" aria-label="채널별 광고비와 첫 구매 CAC 가상 사례">
-      <thead><tr><th scope="col">광고 채널</th><th scope="col">광고비</th><th scope="col">첫 구매 고객</th><th scope="col">CAC</th></tr></thead>
+    <table class="domain-table acquisition-table" aria-label="채널별 광고비와 설치당 비용 가상 사례">
+      <thead><tr><th scope="col">광고 채널</th><th scope="col">광고비</th><th scope="col">귀속 설치 수</th><th scope="col">CPI</th></tr></thead>
       <tbody>
-        <tr><th scope="row">Meta Ads</th><td>120만 원</td><td>100명</td><td>12,000원</td></tr>
-        <tr><th scope="row">Google Search Ads</th><td>90만 원</td><td>50명</td><td>18,000원</td></tr>
-        <tr><th scope="row">TikTok Ads</th><td>60만 원</td><td>25명</td><td>24,000원</td></tr>
+        <tr><th scope="row">Meta Ads</th><td>120만 원</td><td>100건</td><td>12,000원</td></tr>
+        <tr><th scope="row">Google Search Ads</th><td>90만 원</td><td>50건</td><td>18,000원</td></tr>
+        <tr><th scope="row">TikTok Ads</th><td>60만 원</td><td>25건</td><td>24,000원</td></tr>
       </tbody>
     </table>
-    <div class="acquisition-decision">
-      <h3>TikTok Ads 예산 일부를 Meta Ads로 옮겨 테스트한다.</h3>
-      <p>기존 배분을 유지한 대조군과 새 배분을 비교해 전체 첫 구매 고객 수와 고객당 30일 공헌이익을 확인한다.</p>
-    </div>
-    <p class="acquisition-caption">가상 데이터 · <a href="https://support.google.com/google-ads/answer/12005564" target="_blank" rel="noopener noreferrer">Google Ads의 전환 증분 측정 예시</a></p>
+    <p class="acquisition-caption">가상 데이터 · <a href="https://support.google.com/google-ads/answer/12073727" target="_blank" rel="noopener noreferrer">Google Ads · 설치당 비용</a></p>
   </div>
 </section>
 
@@ -2353,8 +2350,7 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
 </div>
 <div data-note="section-methods" hidden><p>어떤 질문에 어떤 분석 도구를 선택하는지 그래프로 비교한다.</p></div>
 <div data-note="cac-budget" hidden>
-  <p>이 예시는 광고비만 포함한 유료 획득 CAC다. 실제 집계에서는 확정된 매체 비용과 주문 내역을 붙이고, 취소를 제외한 고객별 첫 구매를 한 번만 인정한다. 구매까지 시간이 걸리므로 비교하는 유입 코호트의 관측 기간을 맞춘다. 룩백 윈도우와 기여 모델도 동일하게 적용한다.</p>
-  <p>표는 공통 규칙에서 각 채널에 귀속된 첫 구매를 비교한다. 예산을 늘렸을 때의 추가 구매는 이 평균으로 단정할 수 없다. 비교 가능한 지역을 나눠 같은 총예산으로 현재 배분과 새 배분을 시험한다. 전체 첫 구매 고객 수에 변화가 있는지와 30일 공헌이익을 확인한다. 광고 미노출 대조군이 있는 별도 실험에서는 광고비를 광고로 인해 추가로 확보한 고객 수로 나눠 증분 CAC를 볼 수 있다.</p>
+  <p>각 채널의 광고비를 해당 채널에 귀속된 신규 설치 수로 나눈 가상 사례다. 집계 기간, 신규 설치 이벤트, 기여 기간과 모델을 맞춘다. 재설치 또는 중복 이벤트의 처리 기준도 정한다. <a href="https://support.google.com/google-ads/answer/12073727" target="_blank" rel="noopener noreferrer">Google Ads · 앱 캠페인 입찰과 설치당 비용</a></p>
 </div>
 <div data-note="cac-optimization" hidden>
   <p>소재는 같은 형식으로 메시지만 바꾸고, 타겟팅은 해당 옵션을 지원하는 매체에서 비교한다. 한 번에 한 요소를 바꾸거나 매체의 A/B 테스트로 그룹을 분리한다. 목표 이벤트와 기여 기준을 맞추고 충분한 전환이 쌓인 후 비교한다.</p>
@@ -2371,9 +2367,11 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
 <div data-note="carrying-capacity" hidden><p>먼저 같은 달력 월과 같은 활성 이벤트로 사용자를 분류한다. 이번 달의 신규·복귀는 전월에 활동하지 않았다가 이번 달에 활동한 사람이고, 이탈은 전월에 활동했으나 이번 달에는 활동하지 않은 사람이다. 두 달 연속 활동한 사람은 증감식에서 상쇄된다. <a href="https://amplitude.com/docs/analytics/charts/lifecycle/lifecycle-interpret" target="_blank" rel="noopener noreferrer">Amplitude, 신규·유지·복귀·휴면 사용자 정의</a></p>
 <p>전월 활성 사용자를 A, 매월 신규+복귀 수를 I, 전월 활성 사용자 중 이번 달 이탈할 비율을 c라고 두면 다음 달 활성 사용자는 (1−c)A+I다. 평형에서는 A=(1−c)A+I이므로 A*=I/c이며 0&lt;c≤1을 가정한다. 초기 A=0에서 m개월 값은 A*×[1−(1−c)<sup>m</sup>]이다. 이탈률이 낮은 두 번째 시나리오는 점근적으로 2,000명에 접근한다. 수치는 발표용 가정이다.</p>
 <p>유입이 기존 사용자 수를 따라 늘거나 코호트 구성·재활성화 패턴이 달라지면 평형도 변한다. 이 지표는 현재 조건이 지속될 때의 수준을 추정한다. <a href="https://www.youtube.com/watch?v=tcrr2QiXt9M" target="_blank" rel="noopener noreferrer">토스 이승건, Carrying Capacity 강연</a> · <a href="https://www.youtube.com/watch?v=GFERag7kjFM&t=1607s" target="_blank" rel="noopener noreferrer">토스 Q&A, 유입과 이탈 가정</a></p></div>
-<div data-note="cac-ltv" hidden><p>가상 캠페인에서 1,000명이 방문했고, 그중 250명이 가입했고, 그중 100명이 처음 결제했다. 지출 200만 원에는 이 고객을 획득하기 위한 마케팅·영업비용이 포함된다. 고객별 획득비용은 2만 원이다. 깔때기의 폭은 단계 순서를 나타내며 실제 인원은 각 단계의 숫자로 읽는다. 광고비 외에도 채널에 배부할 인건비·제작비 등을 포함할 수 있다. <a href="https://stripe.com/resources/more/cac-in-saas" target="_blank" rel="noopener noreferrer">Stripe, 고객획득비용 계산과 비용 배부</a></p>
-<p>첫 결제자 100명을 추적해 획득 시점을 0으로 둔다. 경과월별 공헌이익은 100만 원, 80만 원, 64만 원이다. 상품·서비스 제공의 변동비를 차감했고 획득비용은 제외했다. 이익을 매월 말에 인식하고 월 할인율은 0%라고 가정한다. 따라서 1인당 누적액은 1만 원, 1만 8천 원, 2만 4,400원이다. 3개월 회수 후 남은 4,400원은 고정비를 차감하기 전 금액이다.</p>
-<p>차트에서는 최초 결제 코호트의 관측된 3개월 이익과 같은 100명에게 배부한 획득비용을 비교했다. 3개월 이후 가치나 예산 증액 시의 한계 CAC는 별도 추정이 필요하다. <a href="https://www.revenuecat.com/docs/dashboard-and-metrics/charts/cohort-explorer" target="_blank" rel="noopener noreferrer">RevenueCat, 최초 결제 코호트의 누적 가치 계산</a> · <a href="https://www.brucehardie.com/notes/024/reconciling_clv_formulas.pdf" target="_blank" rel="noopener noreferrer">Fader·Hardie, CLV 산식과 현금흐름 시점</a></p></div>
+<div data-note="cac-ltv" hidden>
+  <p>가상 캠페인에서 1,000명이 방문했고, 그중 250명이 앱을 설치했고, 설치자 중 100명이 처음 결제했다. 광고비 200만 원을 귀속 설치자 250명으로 나누면 CPI는 8,000원이다. 깔때기에서 각 단계의 인원은 적힌 숫자로 읽는다. <a href="https://support.google.com/google-ads/answer/12073727" target="_blank" rel="noopener noreferrer">Google Ads · 설치당 비용</a></p>
+  <p>동일한 설치자 250명을 설치일부터 추적한다. 가상 사례에서 비구매자의 공헌이익은 0원으로 두었다. 상품·서비스 제공 변동비를 뺀 설치 코호트의 월별 공헌이익은 100만 원, 80만 원, 64만 원이며, 이 값은 광고비 차감 전이다. 각 월의 공헌이익을 250명으로 나누면 4,000원, 3,200원, 2,560원이다. 월 할인율을 0%로 두면 3개월 누적은 9,760원이다.</p>
+  <p>2개월 누적 7,200원과 3개월 누적 9,760원을 설치당 광고비 8,000원과 비교하면 3개월 차에 회수한다. 3개월 시점의 설치자당 공헌이익은 광고비 차감 후 1,760원이다. <a href="https://www.revenuecat.com/docs/dashboard-and-metrics/charts/cohort-explorer" target="_blank" rel="noopener noreferrer">RevenueCat · 코호트의 누적 가치 계산</a></p>
+</div>
 <div data-note="duolingo-user-states" hidden>모든 학습자는 매일 일곱 상태 가운데 하나에 속합니다. 오늘 활동한 네 그룹을 더하면 DAU입니다. 활동을 멈춘 기간이 길어지면 주간 이탈 위험, 월간 이탈 위험, 휴면으로 이동합니다. 주간 이탈 위험에서 돌아오면 기존 사용자, 월간 이탈 위험에서 돌아오면 재활성 사용자, 휴면에서 돌아오면 장기 휴면 복귀 사용자가 됩니다. 예를 들어 어제 처음 들어온 사람이 오늘 돌아오면 New에서 Current로 이동합니다. 이 전이율이 NURR입니다. 이미 Current였던 사람이 다음 날에도 활동하는 전이율이 CURR입니다. 듀오링고는 여러 전이율을 각각 움직이는 시뮬레이션에서 CURR 개선이 DAU에 미치는 예상 효과가 가장 커서 실험의 우선순위로 삼았습니다. <a href="https://blog.duolingo.com/growth-model-duolingo/" target="_blank" rel="noopener noreferrer">Duolingo 데이터 과학팀 · 상태 정의와 원본 도표</a> · <a href="https://www.lennysnewsletter.com/p/how-duolingo-reignited-user-growth" target="_blank" rel="noopener noreferrer">Jorge Mazal · 상태별 활동 기간과 전이율</a></div>
 <div data-note="section-cases" hidden><p>광고 채널의 품질부터 가입 흐름, 가격 정책과 CRM 메시지까지 고객사가 실제로 실행한 변경을 따라간다.</p></div>
 <div data-note="case-airbridge-gosu" hidden><p>채널별 설치 후 가입률을 비교해 이상 채널을 찾았다. 과도한 클릭과 인앱 활동이 없는 설치를 확인한 뒤 IP 차단과 빈도 제한 규칙을 설정했다.</p><p>실크로드 오리진 모바일 출시 캠페인에서 광고비를 35% 절감했다고 보고했다. 광고비 절감은 고객사가 보고한 운영 결과다. 절감액을 계산한 기준 기간과 대조군은 공개하지 않았다.</p><p><a href="https://www.airbridge.io/ko/case-studies/gosu-funnel-fraud-detection-analysis" target="_blank" rel="noopener">Airbridge · GOSU 사례 원문</a> · <a href="https://www.airbridge.io/images/cms/case-studies/inline/695ca2276e9f5c9af36b9e5b_-25-_5.webp" target="_blank" rel="noopener">화면·도표 원본</a></p></div>
