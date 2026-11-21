@@ -350,6 +350,59 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   .domain-table { font-size: clamp(12px, 3.4vw, 20px); line-height: 1.38; }
   .domain-table th, .domain-table td { padding: .58em .48em; }
 }
+
+/* 원두 브랜드의 시장 선택과 제품 선택을 연결하는 성장 전략 트리 */
+#logic-tree { overflow: hidden; }
+.strategy-figure {
+  --branch-gap: clamp(26px, 4vw, 80px);
+  --half-gap: calc(var(--branch-gap) / 2);
+  --wire: 2px solid var(--line);
+  width: 100%; min-height: 0; align-self: center;
+  padding: 0 1rem; font-size: clamp(13px, 1.35rem, 32px); line-height: 1.35;
+}
+.strategy-tree, .strategy-markets > li {
+  display: grid; align-items: center; gap: var(--branch-gap);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3.3fr);
+}
+.strategy-markets > li { grid-template-columns: minmax(0, .88fr) minmax(0, 1.9fr); }
+.strategy-tree ul { list-style: none; padding: 0; margin: 0; }
+.strategy-fork { display: grid; grid-auto-rows: 1fr; position: relative; }
+.strategy-fork::before {
+  content: ""; position: absolute; right: calc(100% + var(--half-gap)); top: 50%;
+  width: var(--half-gap); border-top: var(--wire);
+}
+.strategy-fork > li { position: relative; }
+.strategy-fork > li::before {
+  content: ""; position: absolute; right: 100%; width: var(--half-gap); height: 50%;
+  box-sizing: border-box; border-left: var(--wire);
+}
+.strategy-fork > li:first-child::before { top: 50%; border-top: var(--wire); }
+.strategy-fork > li:last-child::before { bottom: 50%; border-bottom: var(--wire); }
+.strategy-root, .strategy-market { padding: .85em .9em; }
+.strategy-root { background: var(--blue); color: white; }
+.strategy-market { background: var(--blue-paper); }
+.strategy-root small, .strategy-market small { display: block; margin-bottom: .25em; font-size: .85em; }
+.strategy-root strong, .strategy-market strong { display: block; font-size: 1.25em; }
+.strategy-options > li { display: grid; align-content: center; padding: .8em 0 .8em .7em; }
+.strategy-options h3 { font-size: 1.18em; color: var(--blue); }
+.strategy-options h3 span { color: var(--muted); font-size: .72em; font-weight: 500; margin-left: .6em; }
+.strategy-options p { margin-top: .13em; }
+.strategy-figure figcaption { margin-top: 1.9em; font-size: .76em; color: var(--muted); }
+.strategy-figure a { color: inherit; text-underline-offset: .16em; }
+@media (max-aspect-ratio: 1/1) {
+  .strategy-figure { padding: 0 1rem; font-size: clamp(12px, min(3.5vw, 2.25dvh), 21px); }
+  .strategy-tree, .strategy-markets > li { display: block; }
+  .strategy-tree ul { margin-left: 1em; padding-left: 1em; border-left: var(--wire); }
+  .strategy-fork { display: block; }
+  .strategy-fork::before { display: none; }
+  .strategy-fork > li::before { display: none; }
+  .strategy-root, .strategy-market { padding: .46em .7em; }
+  .strategy-root small, .strategy-market small { display: inline; margin-right: .6em; }
+  .strategy-root strong, .strategy-market strong { display: inline; font-size: 1.1em; }
+  .strategy-options > li { padding: .4em 0; }
+  .strategy-figure figcaption { margin-top: 1em; }
+}
+
 /* 분석 과정, 방법론, 고객 사례 */
 .lesson-body {
   min-width:0; min-height:0; display:grid; align-content:center;
@@ -1361,8 +1414,32 @@ GROUP BY sale_date, store_id;</code></pre>
 <div class="lesson-body"><figure class="lesson-art"><svg class="lesson-wide" viewBox="0 0 1120 370" role="img" aria-label="A 현상, B 문제 정의, C 지표, D 현황, E 평가, F 요인, G 해결 방안의 순서"><text x="109" y="77" font-size="23" text-anchor="middle" class="v">현상</text><line x1="19" y1="99" x2="199" y2="99" stroke="#184d99" stroke-width="3" stroke-dasharray=""/><rect x="10" y="125" width="198" height="89" fill="#edf0f3" rx="8"/><text x="109" y="156" font-size="20" text-anchor="middle" class="bl v">A</text><text x="109" y="188" font-size="20" text-anchor="middle" class="v">겉으로 드러난 현상</text><text x="221" y="181" font-size="21" text-anchor="middle" class="bl">→</text><text x="333" y="77" font-size="23" text-anchor="middle" class="v">목적·문제 정의</text><line x1="243" y1="99" x2="423" y2="99" stroke="#184d99" stroke-width="3" stroke-dasharray=""/><rect x="234" y="125" width="198" height="89" fill="#eaf2fb" rx="8"/><text x="333" y="156" font-size="20" text-anchor="middle" class="bl v">B</text><text x="333" y="188" font-size="20" text-anchor="middle" class="v">목적과 문제 정의</text><text x="333" y="233" font-size="20" text-anchor="middle" class="bl">↓</text><rect x="234" y="241" width="198" height="89" fill="#eaf2fb" rx="8"/><text x="333" y="272" font-size="20" text-anchor="middle" class="bl v">C</text><text x="333" y="304" font-size="20" text-anchor="middle" class="v">지표 결정</text><text x="445" y="181" font-size="21" text-anchor="middle" class="bl">→</text><text x="557" y="77" font-size="23" text-anchor="middle" class="v">현상 파악·평가</text><line x1="467" y1="99" x2="647" y2="99" stroke="#184d99" stroke-width="3" stroke-dasharray=""/><rect x="458" y="125" width="198" height="89" fill="#eaf2fb" rx="8"/><text x="557" y="156" font-size="20" text-anchor="middle" class="bl v">D</text><text x="557" y="188" font-size="20" text-anchor="middle" class="v">현재 상태 파악</text><text x="557" y="233" font-size="20" text-anchor="middle" class="bl">↓</text><rect x="458" y="241" width="198" height="89" fill="#eaf2fb" rx="8"/><text x="557" y="272" font-size="20" text-anchor="middle" class="bl v">E</text><text x="557" y="304" font-size="20" text-anchor="middle" class="v">평가</text><text x="669" y="181" font-size="21" text-anchor="middle" class="bl">→</text><text x="781" y="77" font-size="23" text-anchor="middle" class="v">요인</text><line x1="691" y1="99" x2="871" y2="99" stroke="#184d99" stroke-width="3" stroke-dasharray=""/><rect x="682" y="125" width="198" height="89" fill="#edf0f3" rx="8"/><text x="781" y="156" font-size="20" text-anchor="middle" class="bl v">F</text><text x="781" y="188" font-size="20" text-anchor="middle" class="v">요인 분석</text><text x="893" y="181" font-size="21" text-anchor="middle" class="bl">→</text><text x="1005" y="77" font-size="23" text-anchor="middle" class="v">방법</text><line x1="915" y1="99" x2="1095" y2="99" stroke="#184d99" stroke-width="3" stroke-dasharray=""/><rect x="906" y="125" width="198" height="89" fill="#edf0f3" rx="8"/><text x="1005" y="156" font-size="20" text-anchor="middle" class="bl v">G</text><text x="1005" y="188" font-size="20" text-anchor="middle" class="v">해결 방안 모색</text></svg></figure></div>
 </section>
 <section id="logic-tree" class="slide" aria-labelledby="title-logic-tree" hidden>
-  <header class="head"><h2 id="title-logic-tree">로직 트리와 MECE</h2></header>
-<div class="lesson-body"><figure class="lesson-art"><svg class="lesson-wide" viewBox="0 0 1120 495" role="img" aria-label="가입 7일째 미완료 800명의 경로. 무주문 700, 유주문 100. 유주문 중 모두 취소 40, 진행 중 60."><text x="10" y="49" font-size="34" text-anchor="start" class="bl v">Why?</text><text x="123" y="49" font-size="25" text-anchor="start" class="v">첫 배송을 받지 못한 고객은 어느 단계에 머물렀나?</text><line x1="284" y1="221" x2="335" y2="221" stroke="#7c8da1" stroke-width="3" stroke-dasharray=""/><line x1="335" y1="149" x2="335" y2="299" stroke="#7c8da1" stroke-width="3" stroke-dasharray=""/><line x1="335" y1="149" x2="380" y2="149" stroke="#7c8da1" stroke-width="3" stroke-dasharray=""/><line x1="335" y1="299" x2="380" y2="299" stroke="#7c8da1" stroke-width="3" stroke-dasharray=""/><line x1="676" y1="299" x2="725" y2="299" stroke="#7c8da1" stroke-width="3" stroke-dasharray=""/><line x1="725" y1="242" x2="725" y2="358" stroke="#7c8da1" stroke-width="3" stroke-dasharray=""/><line x1="725" y1="242" x2="770" y2="242" stroke="#7c8da1" stroke-width="3" stroke-dasharray=""/><line x1="725" y1="358" x2="770" y2="358" stroke="#7c8da1" stroke-width="3" stroke-dasharray=""/><rect x="12" y="175" width="273" height="92" fill="#184d99" rx="5"/><text x="28" y="209" font-size="20" text-anchor="start" class="wh">가입 7일 내 첫 배송 미완료</text><text x="28" y="246" font-size="29" text-anchor="start" class="wh v">800명</text><rect x="380" y="103" width="296" height="92" fill="#eaf2fb" rx="5"/><text x="396" y="137" font-size="20" text-anchor="start" class="">주문한 적 없음</text><text x="396" y="174" font-size="29" text-anchor="start" class="bl v">700명</text><rect x="380" y="253" width="296" height="92" fill="#eaf2fb" rx="5"/><text x="396" y="287" font-size="20" text-anchor="start" class="">주문한 적 있음</text><text x="396" y="324" font-size="29" text-anchor="start" class="bl v">100명</text><rect x="770" y="196" width="318" height="92" fill="#eaf2fb" rx="5"/><text x="786" y="230" font-size="20" text-anchor="start" class="">모든 주문이 취소됨</text><text x="786" y="267" font-size="29" text-anchor="start" class="bl v">40명</text><rect x="770" y="312" width="318" height="92" fill="#eaf2fb" rx="5"/><text x="786" y="346" font-size="20" text-anchor="start" class="">진행 중인 주문이 남음</text><text x="786" y="383" font-size="29" text-anchor="start" class="bl v">60명</text><text x="10" y="470" font-size="33" text-anchor="start" class="bl v">So what?</text><text x="180" y="470" font-size="24" text-anchor="start" class="v">미주문 700명의 상품 조회부터 결제까지를 먼저 살펴본다.</text></svg><figcaption>가상 고객 · 같은 단계의 가지는 서로 겹치지 않고, 합하면 부모 집단 전체가 된다.</figcaption></figure></div>
+  <header class="head"><h2 id="title-logic-tree">로직 트리로 보는 원두 브랜드의 성장 전략</h2></header>
+  <figure class="strategy-figure">
+    <div class="strategy-tree">
+      <div class="strategy-root">
+        <small>가정용 원두 브랜드</small>
+        <strong>다음 사업은<br>무엇으로 할까?</strong>
+      </div>
+      <ul class="strategy-fork strategy-markets" aria-label="어느 시장에 팔 것인가?">
+        <li>
+          <div class="strategy-market"><small>기존 시장</small><strong>개인 고객</strong></div>
+          <ul class="strategy-fork strategy-options" aria-label="개인 고객에게 무엇을 팔 것인가?">
+            <li><h3>시장 침투<span>기존 제품</span></h3><p>동네 시음회에서 지금 파는 원두를 알린다.</p></li>
+            <li><h3>제품 개발<span>새 제품</span></h3><p>집에서 간편하게 내리는 캡슐 커피를 출시한다.</p></li>
+          </ul>
+        </li>
+        <li>
+          <div class="strategy-market"><small>새 시장</small><strong>호텔</strong></div>
+          <ul class="strategy-fork strategy-options" aria-label="호텔에 무엇을 팔 것인가?">
+            <li><h3>시장 개발<span>기존 제품</span></h3><p>같은 원두를 호텔 조식당에 납품한다.</p></li>
+            <li><h3>다각화<span>새 제품</span></h3><p>호텔 객실용 캡슐 커피를 개발해 공급한다.</p></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <figcaption>안소프의 제품·시장 성장 매트릭스를 가상의 원두 브랜드에 적용한 예시. <a href="https://ia803104.us.archive.org/32/items/strategiesfordiversificationansoff1957hbr/Strategies%20for%20Diversification-Ansoff1957-HBR.pdf#page=2" target="_blank" rel="noopener noreferrer">Ansoff, <i>Strategies for Diversification</i> (1957)</a></figcaption>
+  </figure>
 </section>
 <section id="analysis-signal" class="slide" aria-labelledby="title-analysis-signal" hidden>
   <header class="head"><h2 id="title-analysis-signal">겉으로 드러난 현상</h2></header>
@@ -1889,7 +1966,10 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
 <p>첫 결제자 100명을 추적해 획득 시점을 0으로 둔다. 경과월별 공헌이익은 100만 원, 80만 원, 64만 원이다. 상품·서비스 제공의 변동비를 차감했고 획득비용은 제외했다. 이익을 매월 말에 인식하고 월 할인율은 0%라고 가정한다. 따라서 1인당 누적액은 1만 원, 1만 8천 원, 2만 4,400원이다. 3개월 회수 후 남은 4,400원은 고정비를 차감하기 전 금액이다.</p>
 <p>차트에서는 최초 결제 코호트의 관측된 3개월 이익과 같은 100명에게 배부한 획득비용을 비교했다. 3개월 이후 가치나 예산 증액 시의 한계 CAC는 별도 추정이 필요하다. <a href="https://www.revenuecat.com/docs/dashboard-and-metrics/charts/cohort-explorer" target="_blank" rel="noopener noreferrer">RevenueCat, 최초 결제 코호트의 누적 가치 계산</a> · <a href="https://www.brucehardie.com/notes/024/reconciling_clv_formulas.pdf" target="_blank" rel="noopener noreferrer">Fader·Hardie, CLV 산식과 현금흐름 시점</a></p></div>
 <div data-note="duolingo-user-states" hidden>모든 학습자는 매일 일곱 상태 가운데 하나에 속합니다. 오늘 활동한 네 그룹을 더하면 DAU입니다. 활동을 멈춘 기간이 길어지면 주간 이탈 위험, 월간 이탈 위험, 휴면으로 이동합니다. 주간 이탈 위험에서 돌아오면 기존 사용자, 월간 이탈 위험에서 돌아오면 재활성 사용자, 휴면에서 돌아오면 장기 휴면 복귀 사용자가 됩니다. 예를 들어 어제 처음 들어온 사람이 오늘 돌아오면 New에서 Current로 이동합니다. 이 전이율이 NURR입니다. 이미 Current였던 사람이 다음 날에도 활동하는 전이율이 CURR입니다. 듀오링고는 여러 전이율을 각각 움직이는 시뮬레이션에서 CURR 개선이 DAU에 미치는 예상 효과가 가장 커서 실험의 우선순위로 삼았습니다. <a href="https://blog.duolingo.com/growth-model-duolingo/" target="_blank" rel="noopener noreferrer">Duolingo 데이터 과학팀 · 상태 정의와 원본 도표</a> · <a href="https://www.lennysnewsletter.com/p/how-duolingo-reignited-user-growth" target="_blank" rel="noopener noreferrer">Jorge Mazal · 상태별 활동 기간과 전이율</a></div>
-<div data-note="logic-tree" hidden><p>가입 7일째의 상태를 고정하고 최초 가입 고객 ID를 분류했다. 이 예시에서 기한 내 배송이 완료되지 않은 주문의 상태는 취소 또는 진행 중이다. 여러 주문 중 진행 중인 주문이 하나라도 있으면 마지막 가지에 넣는다. MECE는 서로 배타적이면서 전체를 빠짐없이 포괄하도록 분해하는 원칙이다. 트리는 점검할 곳을 좁혀 주며, 이탈 원인은 별도로 검증한다. <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/429276/Issue_Trees.pdf" target="_blank" rel="noopener">Issue Trees · MECE 작성 원칙</a></p></div>
+<div data-note="logic-tree" hidden>
+  <p>이 브랜드는 지금까지 집에서 커피를 내려 마시는 개인에게 볶은 원두만 팔았다. “어떻게 성장할까?”를 먼저 “어느 시장에 팔까?”, 이어서 “그 시장에 무엇을 팔까?”로 나눠 본다. 네 가지 전략은 같은 출발점에서 검토하는 대안이다.</p>
+  <p>청중에게 “호텔에서 우리 커피를 팔면 어떤 전략일까요?”라고 물어본다. 지금 파는 원두를 그대로 조식당에 납품하면 시장 개발이다. 호텔 요청에 맞춰 처음으로 객실용 캡슐까지 만든다면 제품과 시장이 모두 새로워져 다각화다. 같은 거래처라도 무엇을 제안하느냐에 따라 준비가 달라진다. 전자는 호텔의 납품 조건부터, 후자는 객실 기기와의 호환성 및 캡슐 생산 역량까지 살펴야 한다.</p>
+</div>
 <div data-note="section-cases" hidden><p>광고 채널의 품질부터 가입 흐름, 가격 정책과 CRM 메시지까지 고객사가 실제로 실행한 변경을 따라간다.</p></div>
 <div data-note="case-airbridge-gosu" hidden><p>채널별 설치 후 가입률을 비교해 이상 채널을 찾았다. 과도한 클릭과 인앱 활동이 없는 설치를 확인한 뒤 IP 차단과 빈도 제한 규칙을 설정했다.</p><p>실크로드 오리진 모바일 출시 캠페인에서 광고비를 35% 절감했다고 보고했다. 광고비 절감은 고객사가 보고한 운영 결과다. 절감액을 계산한 기준 기간과 대조군은 공개하지 않았다.</p><p><a href="https://www.airbridge.io/ko/case-studies/gosu-funnel-fraud-detection-analysis" target="_blank" rel="noopener">Airbridge · GOSU 사례 원문</a> · <a href="https://www.airbridge.io/images/cms/case-studies/inline/695ca2276e9f5c9af36b9e5b_-25-_5.webp" target="_blank" rel="noopener">화면·도표 원본</a></p></div>
 <div data-note="case-airbridge-myrealtrip" hidden><p>파트너가 상품 링크를 만들면 웹과 앱에서 발생한 예약을 모두 파트너 실적으로 집계해 정산하도록 바꿨다.</p><p>마케팅 파트너 경유 거래액이 프로그램 출시 첫 달의 100배 이상으로 늘었다. 프로그램 출시 첫 달과 비교한 전체 파트너 거래액이다. 앱 예약 측정 범위와 참여 파트너 수도 함께 늘었다.</p><p><a href="https://www.airbridge.io/ko/case-studies/myrealtrip-affiliate-marketing-tracking-link" target="_blank" rel="noopener">Airbridge · 마이리얼트립 사례 원문</a> · <a href="https://qhzcaeifhsdzzjpnbdqr.supabase.co/storage/v1/object/public/assets/case-studies/mylink-pc-link-generated-2x-1-1790566209636.webp" target="_blank" rel="noopener">화면·도표 원본</a></p></div>
