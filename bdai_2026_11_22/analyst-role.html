@@ -403,7 +403,7 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .process-sequence tbody th[scope="row"] { color: var(--blue); text-align: center; }
 .process-sequence tbody th[scope="rowgroup"] { vertical-align: middle; }
 .process-questions tbody th[scope="row"] { width: 22%; text-align: left; }
-.process-examples > div { align-self: stretch; display: grid; grid-template-rows: auto 1fr; }
+.process-examples > div { align-self: center; display: grid; min-width: 0; }
 .process-examples > .process-question-panel {
   grid-template-rows: auto auto; align-content: start; gap: clamp(1rem, 4.5dvh, 3rem);
 }
@@ -415,7 +415,7 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .process-checks li + li { margin-top: .65em; }
 .process-checks li::marker { color: var(--blue); font-weight: 750; }
 .process-example-list {
-  display: grid; grid-auto-rows: minmax(min-content, 1fr);
+  display: grid; row-gap: clamp(.18em, 1.8dvh, .85em);
   margin: 0; padding: 0 0 0 1.25em;
 }
 .process-example-list li { padding-block-end: 1lh; }
@@ -429,22 +429,27 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   }
   .process-sequence { height: auto; }
   .process-sequence :is(th, td) { padding-block: .28em; }
+  .process-example-list { row-gap: .28em; }
 }
 
-/* 문제 상황 예시에서 서로 다른 역할을 하는 표현에 색과 밑줄을 붙인다. */
+/* 밑줄 친 구절 바로 아래에 해당 개념을 표시한다. */
 #analysis-examples-annotated { overflow: hidden; }
-.process-example-list li[data-role] { padding-block-end: 0; }
-.process-example-list li[data-role="cause"] { --annotation-color: var(--blue); }
-.process-example-list li[data-role="observation"] { --annotation-color: #176248; }
-.process-example-list li[data-role="solution"] { --annotation-color: #884607; }
-.process-example-list li[data-role="purpose"] { --annotation-color: #6b4599; }
-.process-example-list li[data-role="ambiguity"] { --annotation-color: #9c334c; }
-.process-mark {
-  color: var(--annotation-color); text-decoration: underline;
-  text-underline-offset: .18em; text-decoration-thickness: .085em;
+#analysis-examples-annotated .process-example-list { row-gap: clamp(.45em, 4dvh, 1.55em); }
+#analysis-examples-annotated .process-example-list li { padding-block-end: 0; }
+.process-labeled-phrase {
+  display: inline-grid; justify-items: center;
+  color: var(--annotation-color); white-space: nowrap;
 }
-.process-annotation { display: block; margin-top: .25em; color: var(--muted); font-size: .82em; }
-.process-annotation b { display: inline-block; margin-right: .45em; color: var(--annotation-color); }
+.process-labeled-phrase[data-role="cause"] { --annotation-color: var(--blue); }
+.process-labeled-phrase[data-role="observation"] { --annotation-color: #176248; }
+.process-labeled-phrase[data-role="solution"] { --annotation-color: #884607; }
+.process-labeled-phrase[data-role="purpose"] { --annotation-color: #6b4599; }
+.process-labeled-phrase[data-role="ambiguity"] { --annotation-color: #9c334c; }
+.process-mark { text-decoration: underline; text-underline-offset: .18em; text-decoration-thickness: .085em; }
+.process-label { margin-top: .36em; font-size: .76em; line-height: 1.25; font-weight: 750; }
+@media (max-aspect-ratio: 1/1) {
+  #analysis-examples-annotated .process-example-list { row-gap: clamp(.22em, 1dvh, .65em); }
+}
 
 /* 결론과 근거 사이를 양방향으로 읽는 로직 트리 */
 .analysis-example, .acquisition-example {
@@ -1627,12 +1632,11 @@ GROUP BY sale_date, store_id;</code></pre>
     <div>
       <h3>문제 상황 예시</h3>
       <ul class="process-example-list">
-        <li data-role="cause"><strong><span class="process-mark">사무직 위주 회사라는 이미지 때문에</span> 제조업 인재를 확보하기 어렵다.</strong><span class="process-annotation"><b>원인 가설</b>회사 이미지가 제조업 인재 확보에 영향을 주는지 확인한다.</span></li>
-        <li data-role="cause"><strong><span class="process-mark">우수한 파견 인력이 직접 채용되면서</span> 인재 풀이 줄고 있다.</strong><span class="process-annotation"><b>원인 가설</b>직접 채용이 파견 인재 풀 감소에 영향을 주는지 확인한다.</span></li>
-        <li data-role="observation"><strong>인재 부족으로 <span class="process-mark">효율적이고 효과적인 영업 활동을 못 하고 있다</span>.</strong><span class="process-annotation"><b>관측 현상</b>영업 활동에서 어떤 결과가 기대에 못 미치는지 확인한다.</span></li>
-        <li data-role="solution"><strong><span class="process-mark">작업 효율화를 통해</span> 구조 조정을 하고자 한다.</strong><span class="process-annotation"><b>해결 방안 후보</b>작업 효율화로 개선하고 싶은 상태를 먼저 정한다.</span></li>
-        <li data-role="purpose"><strong><span class="process-mark">유연한 근무 환경을 도입</span>하는 데 필요한 내용을 제안하고 싶다.</strong><span class="process-annotation"><b>목적</b>유연근무를 도입해 어떤 변화를 만들고 싶은지 묻는다.</span></li>
-        <li data-role="ambiguity"><strong>우리 지역의 인구 유출 완화 방안이 <span class="process-mark">효과적이지 않다</span></strong><span class="process-annotation"><b>모호함</b>판단에 사용한 인구 유출 지표와 비교 기간을 묻는다.</span></li>
+        <li><strong><span class="process-labeled-phrase" data-role="cause"><span class="process-mark">사무직 위주 회사라는 이미지</span><span class="process-label">원인 가설</span></span> 때문에 제조업 인재를 확보하기 어렵다.</strong></li>
+        <li><strong>우수한 파견 인력이 <span class="process-labeled-phrase" data-role="cause"><span class="process-mark">직접 채용</span><span class="process-label">원인 후보</span></span>되면서 <span class="process-labeled-phrase" data-role="observation"><span class="process-mark">인재 풀이 줄고 있다</span><span class="process-label">관측 현상</span></span>.</strong></li>
+        <li><strong><span class="process-labeled-phrase" data-role="cause"><span class="process-mark">인재 부족</span><span class="process-label">원인 가설</span></span>으로 <span class="process-labeled-phrase" data-role="ambiguity"><span class="process-mark">효율적이고 효과적인</span><span class="process-label">모호함</span></span> 영업 활동을 못 하고 있다.</strong></li>
+        <li><strong><span class="process-labeled-phrase" data-role="solution"><span class="process-mark">작업 효율화</span><span class="process-label">해결 방안 후보</span></span>를 통해 <span class="process-labeled-phrase" data-role="purpose"><span class="process-mark">구조 조정</span><span class="process-label">목적</span></span>을 하고자 한다.</strong></li>
+        <li><strong><span class="process-labeled-phrase" data-role="ambiguity"><span class="process-mark">유연한</span><span class="process-label">모호함</span></span> 근무 환경을 도입하는 데 필요한 내용을 제안하고 싶다.</strong></li>
       </ul>
     </div>
   </div>
@@ -2190,8 +2194,8 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
   <p>오른쪽 문장은 분석을 시작할 때 접하는 요청과 진술의 예시다. ‘이미지 때문에’처럼 원인이 이미 제시된 문장에서는 관찰한 현상과 확인할 가설을 짚어 본다. 구조 조정이나 유연근무처럼 해법이 먼저 나온 문장에서는 그 해법으로 개선하고 싶은 상태부터 묻는다.</p>
 </div>
 <div data-note="analysis-examples-annotated" hidden>
-  <p>밑줄은 각 문장에서 우선 살펴볼 구절을 가리킨다. 같은 문장 안에도 여러 성격의 표현이 섞일 수 있다. 세 번째 문장의 ‘인재 부족으로’ 역시 원인 가설이며, 장표에서는 뒷부분의 보고된 현상에 초점을 맞췄다.</p>
-  <p>유연근무 도입은 요청에 드러난 목적이다. 도입을 통해 채용, 이직, 업무 방식 중 무엇을 개선하려는지 물으면 분석 목적을 한 단계 더 구체화할 수 있다.</p>
+  <p>한 문장에 관측 현상과 원인 후보가 함께 들어갈 수 있다. ‘인재 풀이 줄고 있다’는 관측을 나타내고, ‘직접 채용’이 감소에 영향을 주었는지는 추가로 확인한다. ‘효율적이고 효과적인’, ‘유연한’은 어떤 상태를 의미하는지 구체화가 필요한 표현이다.</p>
+  <p>구조 조정은 네 번째 문장에 나타난 목적이며, 작업 효율화는 그 목적을 달성하기 위한 해결 방안 후보다. 이 목적이 더 상위의 어떤 문제를 해결하는지도 질문할 수 있다.</p>
 </div>
 <div data-note="analysis-problem" hidden></div>
 <div data-note="section-methods" hidden><p>어떤 질문에 어떤 분석 도구를 선택하는지 그래프로 비교한다.</p></div>
