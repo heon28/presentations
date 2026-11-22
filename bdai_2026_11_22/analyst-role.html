@@ -90,24 +90,42 @@ table .money { text-align: right; }
 .erd-advance { padding: 0; border: 0; background: transparent; }
 #okky-erd .erd-image img { background: #272727; }
 
-/* 발표 조작은 본문 자리를 차지하지 않는다. 마우스 오버 또는 키보드 포커스로 표시한다. */
+/* 챕터 이동은 항상 표시하고, 나머지 조작은 마우스 오버 또는 키보드 포커스로 표시한다. */
 button { font: inherit; color: inherit; cursor: pointer; }
 button:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
 .foot {
   position: fixed; right: .65rem; bottom: .33rem; z-index: 2; padding: .5rem .3rem .18rem;
-  opacity: 0; transition: opacity .12s ease;
 }
-.foot:hover, .foot:focus-within { opacity: 1; }
-.navset { display: flex; align-items: center; gap: .55rem; background: white; padding: .2rem .3rem; font-size: .94rem; }
+.navset { display: flex; align-items: center; gap: .55rem; padding: .2rem .3rem; font-size: max(12px, .94rem); }
+.slide-controls { display: flex; align-items: center; gap: .55rem; opacity: 0; transition: opacity .12s ease; }
+.foot:hover .slide-controls, .foot:focus-within .slide-controls { opacity: 1; }
 .navset button, dialog button { background: white; border: 1px solid var(--line); padding: .27rem .62rem; border-radius: .18rem; }
 .navset button:disabled { opacity: .35; cursor: default; }
+.chapter-jump { position: relative; }
+.chapter-jump summary {
+  display: flex; align-items: center; gap: .5em; list-style: none; cursor: pointer;
+  padding: .32em .62em; border: 1px solid var(--line); border-radius: .22em;
+  background: white; color: var(--blue); font-weight: 690;
+}
+.chapter-jump summary::-webkit-details-marker { display: none; }
+.chapter-jump summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.chapter-jump ol {
+  position: absolute; inset-inline-end: 0; inset-block-end: calc(100% + .36em);
+  width: max-content; max-width: calc(100vw - 1.8rem); max-height: calc(100dvh - 3.5em);
+  overflow: auto; margin: 0; padding: .4em .55em .4em 2.05em;
+  background: white; border: 1px solid var(--line); border-radius: .3em;
+  box-shadow: 0 .25em .9em rgb(27 32 38 / .15);
+}
+.chapter-jump li::marker { color: var(--blue); font-weight: 720; }
+.chapter-jump a { display: block; padding: .4em .32em; color: var(--ink); text-decoration: none; }
+.chapter-jump a:hover, .chapter-jump a:focus-visible { color: var(--blue); background: var(--blue-paper); }
 dialog { color: var(--ink); font-size: max(16px, 1.05rem); max-width: min(720px, 92vw); max-height: 85dvh; overflow: auto; border: 1px solid var(--line); padding: 1.4em; }
 dialog header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 dialog h2 { font-size: 1.45em; }
 dialog p { line-height: 1.55; margin: .8em 0; }
 dialog pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--paper); padding: 1em; font-size: .85em; }
 dialog::backdrop { background: rgb(26 32 43 / .45); }
-@media (hover: none) { .foot { opacity: 1; } }
+@media (hover: none) { .slide-controls { opacity: 1; } }
 @media (max-aspect-ratio: 1/1) {
   :root { font-size: 1.85vw; }
   .slide { padding: 1.1rem 1.1rem 2.7rem; }
@@ -116,9 +134,8 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   .join-inputs { grid-template-columns: 1fr; gap: 1.3rem; }
   .inputs, .wide { font-size: 1.12rem; }
   .wide th, .wide td { padding: .5rem .18rem; }
-  .navset { font-size: max(12px, 1rem); }
 }
-@media (prefers-reduced-motion: reduce) { .foot { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .slide-controls { transition: none; } }
 
 /* 데이터카탈로그 원문 도판은 비율을 유지하고 출처는 하단에 둔다. */
 .catalog-figure {
@@ -981,6 +998,8 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 .opening-agenda li { padding-left:.38em; }
 .opening-agenda li + li { margin-top:.4em; }
 .opening-agenda li::marker { color:var(--blue); font-weight:680; font-variant-numeric:tabular-nums; }
+.opening-agenda a { color: inherit; text-decoration: none; }
+.opening-agenda a:hover, .opening-agenda a:focus-visible { color: var(--blue); text-decoration: underline; text-underline-offset: .15em; }
 @media (max-aspect-ratio:1/1) {
   .opening-cover .opening-byline { right:1.25rem; bottom:3.9rem; }
   .bio-layout { grid-template-columns:1fr; gap:clamp(7px,1.7vh,22px); padding:.7rem .4rem; }
@@ -1100,7 +1119,14 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
 </section>
 <section id="talk-agenda" class="slide opening-agenda" aria-labelledby="title-talk-agenda" hidden>
   <header class="head"><h2 id="title-talk-agenda">목차</h2></header>
-  <ol><li>원천 데이터 정제/가공</li><li>지표</li><li>데이터 분석</li><li>데이터 분석 방법론</li><li>Growth, CRM, 광고 성과 사례</li></ol>
+  <ol>
+    <li><a href="#section-data-prep">원천 데이터 정제/가공</a></li>
+    <li><a href="#section-metrics">지표</a></li>
+    <li><a href="#section-analysis">데이터 분석</a></li>
+    <li><a href="#section-methods">데이터 분석 방법론</a></li>
+    <li><a href="#section-cases">Growth, CRM, 광고 성과 사례</a></li>
+    <li><a href="#section-qa">Q&amp;A</a></li>
+  </ol>
 </section>
 <section id="section-data-prep" class="slide section-divider" aria-labelledby="title-section-data-prep" hidden>
   <header class="head"><h1 id="title-section-data-prep">1. 원천 데이터 정제/가공</h1></header>
@@ -2354,9 +2380,19 @@ GROUP BY sale_date, store_id;</code></pre>
   </div>
 </section>
 </main>
-<footer class="foot"><nav class="navset" aria-label="발표 조작">
-<button id="notes" aria-haspopup="dialog">발표 노트</button><button id="previous" aria-label="이전 장" title="이전 장 (←)">←</button>
-<button id="next" aria-label="다음 장" title="다음 장 (→)">→</button></nav></footer>
+<footer class="foot">
+  <nav class="navset" aria-label="발표 조작">
+    <div class="slide-controls">
+      <button id="notes" aria-haspopup="dialog">발표 노트</button>
+      <button id="previous" aria-label="이전 장" title="이전 장 (←)">←</button>
+      <button id="next" aria-label="다음 장" title="다음 장 (→)">→</button>
+    </div>
+    <details class="chapter-jump">
+      <summary>챕터 이동 <span aria-hidden="true">▴</span></summary>
+      <ol aria-label="챕터 목록"></ol>
+    </details>
+  </nav>
+</footer>
 <dialog id="note-panel" aria-labelledby="note-title">
 <header><h2 id="note-title">발표 노트</h2><button id="close">닫기</button></header>
 <div data-note="talk-cover" hidden><p>데이터 분석가가 실제 업무에서 어떤 데이터를 다루고 어떤 결정을 돕는지 소개한다.</p></div>
@@ -2550,6 +2586,10 @@ slides.forEach((slide, index) => {
 const previous = document.querySelector('#previous');
 const next = document.querySelector('#next');
 const panel = document.querySelector('#note-panel');
+const chapterJump = document.querySelector('.chapter-jump');
+const chapterTrigger = chapterJump.querySelector('summary');
+const agenda = document.querySelector('#talk-agenda ol');
+chapterJump.querySelector('ol').append(...Array.from(agenda.children, item => item.cloneNode(true)));
 let current = 0;
 function slideFromUrl() {
   const hash = location.hash === '#result' ? '#join' : location.hash;
@@ -2561,6 +2601,7 @@ function show(index) {
   slides.forEach((slide, i) => slide.hidden = i !== current);
   previous.disabled = current === 0;
   next.disabled = current === slides.length - 1;
+  chapterJump.open = false;
   if (slideFromUrl() !== current) history.replaceState(null, '', '#' + slides[current].id);
 }
 previous.addEventListener('click', () => show(current - 1));
@@ -2573,10 +2614,23 @@ document.querySelector('#notes').addEventListener('click', () => {
   panel.showModal();
 });
 document.querySelector('#close').addEventListener('click', () => panel.close());
+chapterJump.addEventListener('click', event => {
+  if (!event.target.closest('a')) return;
+  chapterJump.open = false;
+  chapterTrigger.focus();
+});
+document.addEventListener('click', event => {
+  if (!chapterJump.contains(event.target)) chapterJump.open = false;
+});
 window.addEventListener('hashchange', () => show(slideFromUrl()));
 document.addEventListener('keydown', event => {
   if (panel.open || event.altKey || event.ctrlKey || event.metaKey) return;
-  if (event.key === ' ' && event.target.closest('button, a')) return;
+  if (event.key === 'Escape' && chapterJump.open) {
+    chapterJump.open = false;
+    chapterTrigger.focus();
+    return;
+  }
+  if (event.key === ' ' && event.target.closest('button, a, summary')) return;
   if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
     event.preventDefault(); show(current + 1);
   } else if (['ArrowLeft', 'PageUp'].includes(event.key)) {
