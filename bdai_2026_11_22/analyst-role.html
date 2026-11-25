@@ -361,9 +361,9 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   padding-block-start: clamp(14px, 6dvh, 62px);
   font-size: clamp(11px, 1.34rem, 28px); line-height: 1.44; letter-spacing: -.018em;
 }
-.post-lecture-question { max-width: 58em; margin-inline: auto; padding-inline: .35em; text-align: center; text-wrap: balance; }
+.post-lecture-question, .post-lecture-answer { text-align: left; padding-inline-start: .82em; border-inline-start: 1px solid transparent; }
 .post-lecture-qa strong { color: var(--blue); font-weight: 750; }
-.post-lecture-answer { text-align: left; border-inline-start: 1px solid var(--line); padding-inline-start: .82em; }
+.post-lecture-answer { border-inline-start-color: var(--line); }
 .post-lecture-answer > strong { display: block; margin-bottom: .25em; }
 .post-lecture-answer ul { display: grid; gap: .35em; margin: 0; padding-inline-start: 1.16em; }
 .post-lecture-answer li::marker { color: var(--blue); }
