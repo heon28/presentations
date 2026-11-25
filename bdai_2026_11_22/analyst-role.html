@@ -351,6 +351,27 @@ dialog::backdrop { background: rgb(26 32 43 / .45); }
   letter-spacing: -.035em; font-weight: 630;
 }
 
+.post-lecture-qa {
+  display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.42fr);
+  align-self: center; align-items: start; gap: clamp(12px, 3.1vw, 60px);
+  font-size: clamp(12px, 1.44rem, 30px); line-height: 1.48; letter-spacing: -.025em;
+}
+.post-lecture-qa h3 { margin: 0 0 .55em; color: var(--blue); font-size: 1em; }
+.post-lecture-question { padding: .9em 1em; border-inline-start: .18em solid var(--blue); background: var(--blue-paper); }
+.post-lecture-answer { padding-block-start: .9em; }
+.post-lecture-answer ul { display: grid; gap: .7em; margin: 0; padding-inline-start: 1.15em; }
+.post-lecture-answer li::marker { color: var(--blue); }
+.post-lecture-funnel {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .25em .52em;
+  margin: .75em 0; padding: 0; list-style: none;
+  color: var(--blue); font-size: .86em; font-weight: 710;
+}
+.post-lecture-funnel li + li::before { content: "→"; margin-inline-end: .52em; }
+@media (max-aspect-ratio: 1/1) {
+  .post-lecture-qa { grid-template-columns: minmax(0, 1fr); gap: .9em; font-size: clamp(13px, 3.45vw, 20px); }
+  .post-lecture-answer { padding-block-start: 0; }
+}
+
 .closing-contributions {
   display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
   align-self: center; align-items: center; gap: clamp(1rem, 3.5vw, 4.2rem);
@@ -2363,6 +2384,65 @@ GROUP BY sale_date, store_id;</code></pre>
     취업난이도와 근무 환경, 향후 커리어 전망 등을 고려했을 때,<br>
     현재 관심 분야를 계속 준비하는 것이 좋을까요?</p>
 </section>
+<section id="section-post-lecture-questions" class="slide section-divider" aria-labelledby="title-section-post-lecture-questions" hidden>
+  <header class="head"><h1 id="title-section-post-lecture-questions">강의 후 질문</h1></header>
+</section>
+<section id="post-lecture-question-1" class="slide" aria-labelledby="title-post-lecture-question-1" hidden>
+  <header class="head"><h2 id="title-post-lecture-question-1">1. 행사 모집과 신규 서비스 모니터링</h2></header>
+  <div class="post-lecture-qa">
+    <div class="post-lecture-question">
+      <h3>질문</h3>
+      <p>BDAI에서는 운영진·학회원 모집이나 bpoint 같은 신규 서비스 도입 때 매일 유입 인원을 확인합니다. 실무에서도 행사 모집을 매일 모니터링하나요? 어떤 수치를 보면 다음 방향을 정하는 데 도움이 되나요?</p>
+    </div>
+    <div class="post-lecture-answer">
+      <h3>답변</h3>
+      <p>실무에서도 모집 기간에 일별 유입과 신청 추이를 모니터링합니다. 모집 페이지 방문부터 행사 참여까지 퍼널로 나눠 봅니다.</p>
+      <ol class="post-lecture-funnel" aria-label="행사 모집과 참여 퍼널">
+        <li>모집 페이지 확인</li><li>신청서 작성 시작</li><li>신청 완료</li><li>실제 행사 참여</li>
+      </ol>
+      <ul>
+        <li>모집 중에는 단계별 인원과 직전 단계 대비 전환율을 봅니다. 행사 후에는 신청 완료 대비 실제 참여율을 확인합니다.</li>
+        <li>전환율이 낮은 구간을 찾고, 왜 이탈했는지와 다음 모집에서 무엇을 바꿀지 검토합니다.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section id="post-lecture-question-2" class="slide" aria-labelledby="title-post-lecture-question-2" hidden>
+  <header class="head"><h2 id="title-post-lecture-question-2">2. 분석 요청에 비해 데이터가 부족할 때</h2></header>
+  <div class="post-lecture-qa">
+    <div class="post-lecture-question">
+      <h3>질문</h3>
+      <p>타팀이나 클라이언트의 분석 요구에 비해 사용할 수 있는 데이터가 적을 때는 어떻게 대응해야 할까요?</p>
+    </div>
+    <div class="post-lecture-answer">
+      <h3>답변</h3>
+      <ul>
+        <li>현재 데이터로 가능한 분석과 어디까지 답할 수 있는지, 결과를 해석할 때의 한계를 함께 설명합니다.</li>
+        <li>컨설턴트처럼 분석 요청의 배경을 묻습니다. 결과로 내릴 결정과 실제로 해결하려는 문제를 다시 정의합니다.</li>
+        <li><strong>데이터 분석 요청서</strong>를 함께 작성해 문제, 의사결정, 필요한 지표와 데이터 범위를 합의합니다.</li>
+        <li>분석이 필요한지 판단하고, 더 직접적인 해결 방법이 있다면 그 이유와 다음 행동을 함께 제안합니다.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section id="post-lecture-question-3" class="slide" aria-labelledby="title-post-lecture-question-3" hidden>
+  <header class="head"><h2 id="title-post-lecture-question-3">3. 제한된 데이터로 새 가설과 세그먼트 찾기</h2></header>
+  <div class="post-lecture-qa">
+    <div class="post-lecture-question">
+      <h3>질문</h3>
+      <p>학회원 데이터가 한정적이라 비슷한 세그먼트가 반복되고 CRM 성과도 기대에 미치지 않습니다. 추가 수집이 어려울 때 기존 데이터를 어떻게 다시 해석해 새 가설과 세그먼트 기준을 찾을 수 있나요?</p>
+    </div>
+    <div class="post-lecture-answer">
+      <h3>답변</h3>
+      <ul>
+        <li>먼저 어떤 행동을 바꾸고 싶은지 정합니다. 기존 기록이 있다면 최근 활동이나 참여 단계별로 나눠, 어떤 집단에 다른 메시지가 필요할지 가설을 세웁니다.</li>
+        <li>기록만으로 원인을 파악하기 어렵다면 사용자 인터뷰를 활용합니다. 확인하려는 가설에 맞춰 질문지를 설계합니다.</li>
+        <li>새 데이터가 필요하면 어떤 데이터를 어떻게 쌓을지 설계하고, 그 데이터로 어떤 결정을 내릴 수 있는지 이해관계자에게 설명합니다.</li>
+        <li>문제를 해결하는 데 필요한 방법을 고릅니다. 데이터 분석과 인터뷰는 그 문제를 이해하기 위한 도구입니다.</li>
+      </ul>
+    </div>
+  </div>
+</section>
 <section id="contributions" class="slide" aria-labelledby="title-contributions" hidden>
   <header class="head"><h2 id="title-contributions">Contributions</h2></header>
   <div class="closing-contributions">
@@ -2570,6 +2650,27 @@ LEFT JOIN 점포마스터 AS t ON s.점포ID = t.점포ID;</code></pre></div>
   <p>인앱 설문으로 선호하는 운동 장소와 현재 운동 여부를 물었다. 응답을 활동 검색이나 제휴 시설 탐색 이력과 결합해 이메일·푸시·인앱 메시지로 맞춤 추천을 보냈다.</p><p>개인화 캠페인을 운영한 뒤 가입 건수가 3배가 됐다. 전체 개인화 캠페인에서 보고한 수치다. 설문의 독립적인 기여도, 비교 기간과 기준 가입 건수는 공개되지 않았다.</p><p><a href="https://www.braze.com/customers/gympass-case-study" target="_blank" rel="noopener noreferrer">Braze · 사례 원문</a> · <a href="https://cdn.sanity.io/images/b7pblshe/marketing-prod/9b674eecf34175bcc550376ee20e288e93335d7a-2400x1210.png" target="_blank" rel="noopener noreferrer">원본 도판</a></p>
   <h3>ClassPass</h3>
   <p>멤버십 가입 등의 행동이 발생하면 해당 사용자를 광고 제외 목록에 추가했다. Braze가 Facebook·Google·TikTok에 이를 실시간 반영했다.</p><p>TikTok 광고 전환율이 2% 상승했다. 광고 대상 목록 관리 시간은 채널당 월 2시간, 세 채널 합계 월 6시간 줄었다. 전환율 개선 수치는 TikTok에 한정된다. 기준 전환율, 비교 기간과 광고비 절감액은 공개되지 않았다.</p><p><a href="https://www.braze.com/customers/classpass-case-study" target="_blank" rel="noopener noreferrer">Braze · 사례 원문</a> · <a href="https://cdn.sanity.io/images/b7pblshe/marketing-prod/76f8a773da55b2285d568c577f7ad26a1c1061f5-1200x600.png" target="_blank" rel="noopener noreferrer">원본 도판</a></p>
+</div>
+<div data-note="post-lecture-question-1" hidden>
+  <h3>질문 원문</h3>
+  <p>BDAI에서는 운영진 및 학회원 모집 시기 혹은 bpoint같은 신규 서비스 도입 시 매일 추이를 모니터링하는 경우가 많습니다. 매일 유입된 인원 수와 함께 앞으로의 방향성을 제안하고 있는데, 실무에서도 행사 모집 등을 진행할 때 매일 모니터링을 진행하는지 &amp; 어떤 수치들을 주로 봐야 도움이 될 지 궁금합니다!</p>
+  <h3>답변</h3>
+  <p>실무에서도 행사 진행 상황을 모니터링합니다. 모집 페이지 방문, 신청서 작성 시작, 신청 완료, 행사 참여로 퍼널을 나눕니다. 단계별 인원과 전환율을 비교해 어디에서 전환율이 낮은지 확인하고, 이유와 다음 모집에서 개선할 방법을 검토합니다.</p>
+</div>
+<div data-note="post-lecture-question-2" hidden>
+  <h3>질문 원문</h3>
+  <p>타팀이나 클라이언트의 분석 요구 사항에 비해 분석 가능한 데이터 자원이 한정적일 때는 어떻게 대처해야할지 막막합니다. 노하우가 있을까요?</p>
+  <h3>답변</h3>
+  <p>요청자에게 현재 데이터로 어떤 분석이 가능하고 어디까지 답할 수 있는지, 해석의 한계가 무엇인지 함께 알려줍니다. 강의의 문제 정의 파트처럼 요청을 다시 살펴봅니다. 컨설턴트처럼 실제로 해결하고 싶은 문제와 요청한 분석이 어떻게 연결되는지 확인합니다.</p>
+  <p>데이터 분석 요청서를 작성하도록 요청하거나 함께 작성하면 문제를 더 잘 정의할 수 있습니다. 요청서에 해결할 문제, 결과를 바탕으로 내릴 결정, 필요한 지표와 데이터 범위를 적습니다.</p>
+  <p>분석이 필요한 문제인지 판단하는 일도 중요합니다. 범위를 조정할 때는 요청자의 문제를 함께 해결하겠다는 점을 분명히 하고, 판단 근거와 다음 행동을 설명합니다.</p>
+</div>
+<div data-note="post-lecture-question-3" hidden>
+  <h3>질문 원문</h3>
+  <p>학회원에게서 수집할 수 있는 데이터가 한정적이다 보니, 세그먼트를 나눌 때마다 비슷한 기준을 사용하게 됩니다. 그러다 보니 매번 유사한 집단이 도출되고, 해당 세그먼트를 바탕으로 CRM을 진행해도 기대한 성과가 나오지 않을 때 어떤 기준을 바꿔야 할지 판단하기 어렵습니다. 다른 분석에서도 같은 데이터를 반복해서 보다 보면 기존 관점에 머무르는 느낌이 듭니다. 이처럼 추가 데이터를 확보하기 어려운 상황에서, 기존 데이터를 다른 관점으로 해석해 새로운 분석 가설이나 세그먼트 분류 기준을 찾으려면 어떻게 접근해야 할까요?</p>
+  <h3>답변</h3>
+  <p>데이터가 한정적이면 확인할 수 있는 가설에도 한계가 있습니다. 어떤 데이터를 어떻게 쌓을지 설계하고, 그 데이터가 필요한 이유를 이해관계자에게 설명하고 설득하는 것도 분석가의 역량입니다.</p>
+  <p>문제의 원인을 찾을 때는 사용자 인터뷰도 활용할 수 있습니다. 확인하고 싶은 내용을 중심으로 인터뷰 질문지를 설계합니다. 구체적인 방법은 상황에 따라 달라집니다. 문제를 파악하고 해결하려는 목적에 맞춰 데이터 분석, 인터뷰, 수집 설계 가운데 필요한 방법을 선택합니다.</p>
 </div>
 </dialog>
 <script>
